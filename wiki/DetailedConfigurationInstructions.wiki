@@ -1,3 +1,0 @@
-#summary Detailed instructions for configuring RubyCAS-Server.
-
-Coming soon...
