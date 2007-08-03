@@ -9,7 +9,7 @@ This page describes some of the more common usage scenarios, and explains how to
 
 ---
 
-=== Scenario A: Basics - protecting web apps with CAS ===
+=== Scenario A: Basics - Configuring a RubyCAS-Server and protecting multiple web apps ===
 
 This is the canonical CAS usage example. Lets assume you have two web applications, a Rails app at http://myrails.example.com, and a PHP-based website at http://myphp.example.com. You want to fully protect both websites, so that accessing any of their pages requires the user to log in via CAS.
 
@@ -35,7 +35,6 @@ You can leave most of the settings in `config.yml` at their defaults, but a few 
   * *`ssl_cert:`* The `ssl_cert` value must point to your SSL certificate .pem file. You can use a self-signed certificate for testing, but you should obtain a real one from a Certificate Authority for production use. See the [SSLCertificates] wiki page for more info.
   * *`database:`* Further down, the `database` settings need to be configured for your database server. The options here are self-explanatory, but you may want to have a look at the [http://ar.rubyonrails.com/classes/ActiveRecord/Base.html#M000425 ActiveRecord documentation] for details.
   * *`authenticator:`* Finally, you'll have to configure the back-end `authenticator` against which RubyCAS-Server validates usernames and passwords. Keep in mind that the CAS server does not maintain its own list of users. Instead it uses some pre-existing data source. Several example `authenticator` configurations are included in the `config.yml` file. Pick the one best suited for your needs and uncomment it (by removing the `#` at the beginning of each line). Chances are, your web application already has a SQL table with usernames and passwords, so this may be the simplest choice (if so, uncomment and modify the "SQL Authentication" section in the default `config.yml`). Other possible methods include LDAP, !ActiveDirectory (via LDAP), or writing your own [WritingCustomAuthenticators custom authenticator].
-
 
 
 
