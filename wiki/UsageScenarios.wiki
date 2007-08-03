@@ -8,7 +8,7 @@ There are many ways to make use of the CAS architecture. Everything from using i
 This page describes some of the more common usage scenarios, and explains how to implement  them using RubyCAS-Server. When discussing the client side of the CAS equation, we often refer to [http://code.google.com/p/rubycas-client/ RubyCAS-Client], however any full-featured CAS client can be used in its place (as should be true for the server as well).
 
 
-=== Scenario A: Basics - Configuring a CAS server and protecting multiple web apps ===
+== Scenario A: Basics - Configuring a CAS server and protecting multiple web apps ==
 
 This is the canonical CAS usage example. Lets assume you have two web applications, a Rails app at http://myrails.example.com, and a PHP-based website at http://myphp.example.com. You want to fully protect both websites, so that accessing any of their pages requires the user to log in via CAS.
 
@@ -21,14 +21,11 @@ You will need:
 
 Note that it is perfectly fine for all three pieces -- the CAS server and the two web apps -- to be served from the same machine.
 
-==== Configuring RubyCAS-Server ====
 
-
-
-=== Scenario B: Gatewaying - Using optional/partial CAS authentication ===
+== Scenario B: Gatewaying - Using optional/partial CAS authentication ==
 
 _To be written_
 
-=== Scenario C: Proxying - Using a CAS server with a portal ===
+== Scenario C: Proxying - Using a CAS server with a portal ==
 
 _To be written_
