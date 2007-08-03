@@ -16,7 +16,7 @@ Four main scenarios are covered:
   # *Company Intranet*, with several websites/web-applications, all protected by CAS, using an Active Directory authentication back-end
   # *Public Website* with a homepage accessible anonymously and various sub-pages accessible only to authenticated members or administrators
   # *Web-Based Portal*, acting as a central entry point to portlets and other web-based services
-  # *Web Services*, i.e. machines talking to other machines over HTTP, using CAS for authentication
+  # *Web Services (SOAP, XML-RPC, REST, etc.)*, i.e. machines talking to other machines over HTTP, using CAS for authentication
 
 
 == Scenario 1: Company Intranet ==
@@ -35,7 +35,13 @@ Note that it is perfectly fine for your CAS server and your CAS-protected web ap
 
 === RubyCAS-Server Configuration ===
 
-The standard configuration described in the [HowToConfigure] guide more or less covers everything you need here. The default _webrick_ server is probably good enough, unless you expect the CAS server to receive heavy traffic (i.e. you are in a large organization, with thousands of users). If performance is an issue, have a look at the _Apache_ + _mongrel_ configuration discussed in *Scenario B*.
+The standard configuration described in the [HowToConfigure] guide more or less covers everything you need here.
+
+The default _webrick_ server is probably good enough, unless you expect the CAS server to receive heavy traffic (i.e. you are in a large organization, with thousands of users). If performance is an issue, have a look at the _Apache_ + _mongrel_ configuration discussed in *Scenario 2: Public Website*.
+
+Since under this scenario our user database is stored in Active Directory, we will use the ActiveDirectoryLDAP authenticator. An example of an AD authenticator configuration is provided in the default RubyCAS-Server configuration. Uncomment this and modify it for your needs. You should create a basic user account in AD for the CAS server, and provide the username and password in the configuration. RubyCAS-Server needs this account to log in to the AD LDAP serve, in order to validate any given user credentials.
+
+Your websites to be protected by CAS should be configured as described in the [HowToConfigure] guide. Be sure that the appropriate CAS filters are enacted for all content that needs to be protected. For example, in Rails this means adding the CAS filter to your base ApplicationController. In PHP, it means including the phpCAS code at the top of every page.
 
 == Scenario 2: Public Website with private member/administration pages ==
 
@@ -45,6 +51,6 @@ _To be written_
 
 _To be written_
 
-= Scenario 4: 
+== Scenario 4: Web Services (SOAP, RPC, REST, etc.) ==
 
-
+_To be written_
