@@ -18,6 +18,7 @@ Four main scenarios are covered:
   # *Web-Based Portal*, acting as a central entry point to portlets and other web-based services
   # *Web Services (SOAP, XML-RPC, REST, etc.)*, i.e. machines talking to other machines over HTTP, using CAS for authentication
 
+---
 
 == Scenario 1: Company Intranet ==
 
@@ -43,13 +44,21 @@ Since under this scenario our user database is stored in Active Directory, we wi
 
 Your websites to be protected by CAS should be configured as described in the [HowToConfigure] guide. Be sure that the appropriate CAS filters are enacted for all content that needs to be protected. For example, in Rails this means adding the CAS filter to your base ApplicationController. In PHP, it means including the phpCAS code at the top of every page.
 
+
+---
+
 == Scenario 2: Public Website with private member/administration pages ==
 
 _To be written_
 
+
+---
+
 == Scenario 3: Web Based Portal ==
 
 _To be written_
+
+---
 
 == Scenario 4: Web Services (SOAP, RPC, REST, etc.) ==
 
