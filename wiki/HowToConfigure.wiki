@@ -1,0 +1,123 @@
+#summary Detailed walkthrough explaining how to configure and use RubyCAS-Server
+
+= Introduction =
+
+The following is a detailed walkthrough explaining the entire process of setting up and running RubyCAS-Server. A quick guide for configuring the Rails and PHP CAS clients is also provided.
+
+
+
+
+= Configuring RubyCAS-Server =
+
+First, download and install RubyCAS-Server, as described on the RubyCAS-Server project [http://code.google.com/p/rubycas-server/ home page].
+
+Once installed, you should find that you can launch the server by typing `rubycas-server` on the command line (it is also possible to run the server as a daemon; this is also described on the home page). The first time you run `rubycas-server`, it should create a configuration file for you, probably under `/etc/rubycas-server/config.yml`, and quit. You will edit this file as described below and then launch `rubycas-server` again.
+
+RubyCAS-Server's config.yml file is formatted using [http://www.yaml.org/ YAML], a simple, text-based format easily readable by both humans and machines. YAML formatting is mostly self-explanatory, but one thing to be careful about is indentation. Make sure that you use *spaces* instead of ~~tabs~~, as YAML is sensitive to this.
+
+You can leave most of the settings in `config.yml` at their defaults, but a few things need to be changed:
+
+  * *`ssl_cert:`* The `ssl_cert` value must point to your SSL certificate .pem file. You can use a self-signed certificate for testing, but you should obtain a real one from a Certificate Authority for production use. See the [SSLCertificates] wiki page for more info.
+  * *`database:`* Further down, the `database` settings need to be configured for your database server. The options here are self-explanatory, but you may want to have a look at the [http://ar.rubyonrails.com/classes/ActiveRecord/Base.html#M000425 ActiveRecord documentation] for details.
+  * *`authenticator:`* Finally, you'll have to configure the back-end `authenticator` against which RubyCAS-Server validates usernames and passwords. Keep in mind that the CAS server does not maintain its own list of users -- it uses some pre-existing data source of your choice. Several example `authenticator` configurations are included in the `config.yml` file. Pick the one best suited for your needs and uncomment it (by removing the `#` at the beginning of each line). Chances are, your web application already has a SQL table with usernames and passwords, so this may be the simplest choice (if so, uncomment and modify the "SQL Authentication" section in the default `config.yml`). Other possible methods include LDAP, !ActiveDirectory (via LDAP), or writing your own [WritingCustomAuthenticators custom authenticator].
+
+==== Running RubyCAS-Server ====
+
+Now that you have RubyCAS-Server configured, you should be able to start it up. Since by default RubyCAS-Server writes to some system directories (for example logging to `/var/log/casserver.log`), you will have to launch it as root. Try `sudo rubycas-server` in your shell prompt. You should get output roughly like this:
+
+{{{
+*** Starting RubyCAS-Server 0.4.2 using codebase at /usr/lib/ruby/gems/1.8/gems/rubycas-server-0.4.2/lib
+[2007-08-03 13:14:54] INFO  WEBrick 1.3.1
+[2007-08-03 13:14:54] INFO  ruby 1.8.5 (2006-08-25) [i586-linux]
+[2007-08-03 13:14:54] INFO  
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        ... lots of other SSL certificate info ...
+
+** CASServer is running at https://<your hostname>:443/cas and logging to '/var/log/casserver.log'
+}}}
+
+As the output states, further logging is done to `/var/log/casserver.log`. You can monitor what's going on using tail: `tail -f /var/log/casserver.log`.
+
+To make sure that everything is working, point your web browser to https://localhost/cas. You should see the default CAS login page.
+
+=== Configuring CAS Clients ===
+
+We've got our basic CAS server up and running, so it's time to configure our websites to use CAS for authentication.
+
+We will assume that your CAS server is accessible at *https://login.example.com/cas*.
+
+==== Rails ====
+
+For Rails, we will use [http://code.google.com/p/rubycas-client/ RubyCAS-Client]. This works as a standard Rails controller filter. Detailed installation and configuration instructions are available at http://rubycas-client.rubyforge.org/files/README.html, but very roughly speaking, you should do this:
+
+  # `cd` into your Rails apps' root directory and type:
+    `./script/plugin install http://rubycas-client.googlecode.com/svn/trunk/rubycas-client`
+  # Somewhere in your Rails apps' `config/environment.rb` file, add this line:
+    `CAS::Filter.cas_base_url = "https://login.example.com/cas"`
+  # Since we want to protect the entire Rails application (rather than just some subset of controllers), we will add the following filter to our ApplicationController:
+    {{{
+class ApplicationController < ActionController::Base
+  before_filter CAS::Filter
+
+  # ...
+end
+}}}
+
+You should now find that the Rails application is CAS protected. Visiting any of its pages should automatically redirect to our CAS server where the user must enter a valid username and password. Once authenticated, the user's username is available within the Rails app in the controller session as `session[:casfilteruser]`.
+
+To logout, your Rails app should delete the `:casfilteruser` session key 
+and redirect to the CAS server's logout URI:
+
+{{{
+session.delete(:casfilteruser)
+redirect_to(CAS::Filter.logout_url) and return
+}}}
+
+
+==== PHP ====
+
+To protect our PHP application, we will use the [http://www.ja-sig.org/wiki/display/CASC/phpCAS phpCAS] library. Download and installation instructions are available at http://www.ja-sig.org/wiki/display/CASC/phpCAS+installation+guide+and+requirements.
+
+Once the library has been installed, you should create a file that will be included at the top of every CAS-protected page. Lets call it `cas_filter.inc.php`, and paste into it the following code:
+
+{{{
+<?php
+if (!$_SESSION['casfilteruser']) :
+	session_start();
+	
+	phpCAS::setDebug('cas.log');
+	
+	phpCAS::client(CAS_VERSION_2_0,'login.example.com',443,'cas');
+	
+	if ($_REQUEST['service']) :
+		phpCAS::setFixedServiceURL(urlencode($_REQUEST'service']));
+	endif;
+	
+	phpCAS::forceAuthentication();
+	
+	// at this step, the user has been authenticated by the CAS server
+	// and the user's login name can be read with phpCAS::getUser().
+	
+	// logout if desired
+	if (isset($_REQUEST['logout'])) {
+	        phpCAS::logout();
+	}
+	
+	$_SESSION['casfilteruser'] = phpCAS::getUser();
+endif;
+?>
+}}}
+
+Now, we'll need to require this at the top of our CAS-protected pages:
+
+{{{
+  <?php require('cas_filter.inc.php') ?>
+}}}
+
+However, for this to work, we have to make sure that we have a session started BEFORE the CAS authentication takes place. You should make sure then that the session is started in some code above the cas_fitler require using `session_start()` or that you have PHP configured to auto-start sessions with every request.
+
+Once authenticated, as with the Rails filter, the user's username should be available at $_SESSION['casfilteruser'].
+
+To log out, simply go to any protected page with `&logout` added to the URI.
