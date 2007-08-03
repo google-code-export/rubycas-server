@@ -9,12 +9,21 @@ This page describes some of the more common usage scenarios, and explains how to
 
 *Before looking at any of these scenarios*, you should have a look at the [HowToConfigure basic configuration guide] for RubyCAS-Server. The various configurations described below assume that you already have a basic RubyCAS-Server up and running.
 
+= Scenarios =
 
-= Scenario A: Company Intranet =
+Four main scenarios are covered:
+
+  # *Company Intranet*, with several websites/web-applications, all protected by CAS, using an Active Directory authentication back-end
+  # *Public Website* with a homepage accessible anonymously and various sub-pages accessible only to authenticated members or administrators
+  # *Web-Based Portal*, acting as a central entry point to portlets and other web-based services
+  # *Web Services*, i.e. machines talking to other machines over HTTP, using CAS for authentication
+
+
+== Scenario 1: Company Intranet ==
 
 Your company or organization has several web applications, all of which should be accessible only to authenticated users. Accessing any page within these websites should automatically redirect the user to the CAS login screen. Your user accounts are stored and managed by Active Directory. This is, more or less, the canonical CAS usage scenario.
 
-== Requirements ==
+=== Requirements ===
 
 You will need:
 
@@ -24,17 +33,18 @@ You will need:
 
 Note that it is perfectly fine for your CAS server and your CAS-protected web applications to reside on the same server machine.
 
-== RubyCAS-Server Configuration ==
+=== RubyCAS-Server Configuration ===
 
 The standard configuration described in the [HowToConfigure] guide more or less covers everything you need here. The default _webrick_ server is probably good enough, unless you expect the CAS server to receive heavy traffic (i.e. you are in a large organization, with thousands of users). If performance is an issue, have a look at the _Apache_ + _mongrel_ configuration discussed in *Scenario B*.
 
-= Scenario B: Public Website with private member/administration pages =
+== Scenario 2: Public Website with private member/administration pages ==
 
 _To be written_
 
-= Scenario C: Proxying - Using a CAS server with a portal =
+== Scenario 3: Web Based Portal ==
 
 _To be written_
 
+= Scenario 4: 
 
 
