@@ -1,5 +1,5 @@
 #summary Examples of various RubyCAS-Server configurations
-#labels Phase-Implementation,Phase-Deploy
+#labels Phase-Implementation,Phase-Deploy,Featured
 
 = Introduction =
 
