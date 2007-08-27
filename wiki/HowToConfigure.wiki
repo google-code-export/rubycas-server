@@ -5,7 +5,7 @@
 
 The following is a detailed walkthrough explaining the entire process of setting up and running RubyCAS-Server. A quick guide for configuring the Rails and PHP CAS clients is also provided.
 
-This guide assumes that your doing all of this on a Linux system. Of course RubyCAS-Server should work fine on other platforms (Windows, Mac OS X, BSD, etc.), but you will have to translate a few things for yourself (file system paths, for example).
+This guide assumes that you are doing all of this on a Linux system. Of course RubyCAS-Server should work fine on other platforms (Windows, Mac OS X, BSD, etc.), but you will have to translate a few things for yourself (file system paths, for example).
 
 
 = Configuring RubyCAS-Server =
