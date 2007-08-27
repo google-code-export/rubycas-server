@@ -47,7 +47,7 @@ To make sure that everything is working, point your web browser to https://local
 
 We've got our basic CAS server up and running, so it's time to configure our websites to use CAS for authentication.
 
-We will assume that your CAS server is accessible at *https://login.example.com/cas.
+We will assume that your CAS server is accessible at https://login.example.com/cas.
 
 ==== Rails ====
 
