@@ -12,7 +12,7 @@ This guide assumes that you are doing all of this on a Linux system. Of course R
 
 First, download and install RubyCAS-Server, as described on the RubyCAS-Server project [http://code.google.com/p/rubycas-server/ home page].
 
-Once installed, you should find that you can launch the server by typing `rubycas-server` on the command line. The first time you run `rubycas-server`, it should create a configuration file for you, probably under `/etc/rubycas-server/config.yml`, and quit. You will edit this file as described below and then launch `rubycas-server` again.
+Once installed, you should find that you can launch the server by typing `rubycas-server` on the command line. The first time you run `rubycas-server`, a default configuration file will be generated for you, probably under `/etc/rubycas-server/config.yml`. The server will then exit. You will have edit the sample configuration file as described below, and then launch `rubycas-server` again.
 
 RubyCAS-Server's config.yml file is formatted using [http://www.yaml.org/ YAML], a simple, text-based format easily readable by both humans and machines. YAML formatting is mostly self-explanatory, but one thing to be careful about is indentation. Make sure that you use *spaces* instead of ~~tabs~~, as YAML is sensitive to this.
 
