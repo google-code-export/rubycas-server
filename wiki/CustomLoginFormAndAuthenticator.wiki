@@ -1,0 +1,135 @@
+#summary How-to guide for coding a custom login form with additional credentials (in this case, an organizational unit from LDAP)
+
+The following question was posted in the Issues section (http://code.google.com/p/rubycas-server/issues/detail?id=26) and I think the answer might be helpful to a wider audience.
+
+= The Problem =
+
+floyd303 writes:
+
+{{{
+Our LDAP architecture is based on a tree of organization, with its own
+unique users, but we can have two organizations having the same user name
+but being different users.
+
+Our current configuration of RubyCAS-server is working over a specific
+organization, and everything works very fine.
+
+I would like to implement a way to query different organizations for user
+using the same CAS server.
+
+I suppouse the way I can do it is by passing a parameter on the server url:
+
+https://www.casserver.com/?o=organization
+
+And then making the configuration (authenticator section) dynamic based on
+that parameter.
+
+It would be better to use a path https://www.casserver.com/organization/
+, but I don't know its complexity.
+
+Can anybody give me some feedback, or an approach on implementing this??
+}}}
+
+= Solution =
+
+There are a few ways to do this. One is to run multiple RubyCAS servers, one for each OU. You would use a different config file for each server, and specify the LDAP filter differently for each one. Of course this is a bit cumbersome and not dynamic (you'd have to add a new CAS server everytime a new organization is added)...
+
+If you want to make this dynamic, it is possible, but requires some work on your part. You would first set up a custom view that would include the user's organization as a hidden field submitted along with the username and password. You would then write a custom authenticator that would handle the additional field.
+
+=== Custom Login Form ===
+
+First, you'd have to override the login_form view. For information on how to override views, have a look at the custom_views.example.rb file that comes with the RubyCAS-Server distribution, and also the related comments in the example config file. You can copy the existing login_form view from `lib/casserver/views.rb` and just add a hidden field like this:
+
+{{{
+input(:type => "hidden", :id => "organization", :name => "organization", :value => @input['o'])
+}}}
+
+Note that we are setting the value of the hidden field from @input['o'], which corresponds to your `https://www.casserver.com/?o=myorganization` example. If you want to have a prettier url like `https://www.casserver.com/myorganization`, you'll have to put RubyCAS-Server behind an Apache (for example via reverse proxy) and use mod_rewrite to rewrite the URL on the fly.
+
+So, your custom view might look something like this -- note that this is just the default login_form with the above hidden field added in:
+
+{{{
+module CASServer::Views
+
+  def login_form
+    form(:method => "post", :action => @form_action || '/login', :id => "login-form",
+        :onsubmit => "submit = document.getElementById('login-submit'); submit.value='Please wait...'; submit.disabled=true; return true;") do
+      table(:id => "form-layout") do
+        tr do
+          td(:id => "username-label-container") do
+            label(:id => "username-label", :for => "username") { "Username" }
+          end
+          td(:id => "username-container") do
+            input(:type => "text", :id => "username", :name => "username",
+              :size => "32", :tabindex => "1", :accesskey => "u")
+          end
+        end
+        tr do
+          td(:id => "password-label-container") do
+            label(:id => "password-label", :for => "password") { "Password" }
+          end
+          td(:id => "password-container") do
+            input(:type => "password", :id => "password", :name => "password", 
+              :size => "32", :tabindex => "2", :accesskey => "p", :autocomplete => "off")
+          end
+        end
+        tr do
+          td{}
+          td(:id => "submit-container") do
+            input(:type => "hidden", :id => "organization", :name => "organization", :value => @input['o'])
+            input(:type => "hidden", :id => "lt", :name => "lt", :value => @lt)
+            input(:type => "hidden", :id => "service", :name => "service", :value => @service)
+            input(:type => "hidden", :id => "warn", :name => "warn", :value => @warn)
+            input(:type => "submit", :class => "button", :accesskey => "l", :value => "LOGIN", :tabindex => "4", :id => "login-submit")
+          end
+        end
+        tr do
+          td(:colspan => 2, :id => "infoline") { infoline }
+        end if @include_infoline
+      end
+    end
+  end
+
+end
+}}}
+
+Put this somewhere (for example in `/srv/www/cas/custom_views.rb`) and add this to your config file:
+
+{{{
+custom_views_file: /srv/www/cas/custom_views.rb
+}}}
+
+
+=== Custom Authenticator ===
+
+Now you need a custom authenticator to deal with the 'organization' value that will be submitted along with the username and password. In your case we're dealing with LDAP, so it's easier if we just extend the existing LDAP authenticator. If you have a look at it, the LDAP authenticator figures out the LDAP treebase to use based on the options specified in the config file. We will modify the treebase option dynamically based on the organization given in the credentials. So, create the file `/srv/www/cas/my_custom_authenticator.rb` with the following code:
+
+{{{
+require 'rubygems'
+require 'casserver/authenticators/ldap'
+
+class MyCustomAuthenticator < CASServer::Authenticators::LDAP
+
+  def validate(credentials)
+    org = credentials[:organization]
+    @options[:ldap][:base] = "o=#{org},dc=example,dc=net"
+    super
+  end
+
+end
+}}}
+
+
+Now add the following to your config file to make your RubyCAS-Server use the custom authenticator:
+
+{{{
+authenticator:
+  class: MyCustomAuthenticator
+  source: /srv/www/cas/my_custom_authenticator.rb
+  ldap:
+    server: ldap.example.net
+    port: 389
+    filter: (objectClass=person)
+}}}
+
+That's it. Although I haven't tested this configuration, it should work. Please feel free to post any corrections here.
