@@ -6,7 +6,7 @@ RubyCAS-Server can retrieve user data from many different sources, including LDA
 
 = SQL vs SQLEncrypted =
 
-The plain SQL authenticator expects user passwords to be stored as plain text in your SQL database. This makes deploying the SQL authenticator easy, but poses an obvious security risk (not necessarily for your CAS server, but certainly for your users should an intruder gain access to your user database).
+*The plain SQL authenticator expects user passwords to be stored as plain text in your SQL database.* This makes deploying the SQL authenticator easy, but poses an obvious security risk (not necessarily for your CAS server, but certainly for your users should an intruder gain access to your user database).
 
 If this is a concern for you, consider using SQLEncrypted. This authenticator encrypts passwords using SHA1 and an additional 'salt' string. The user password along with the salt is stored in the database in an encrypted format, making it virtually impossible for an intruder to obtain a user's password from your database.
 
