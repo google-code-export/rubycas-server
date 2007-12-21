@@ -1,0 +1,44 @@
+#summary Explains how to use the SQLEncrypted authenticator for more secure password storage.
+
+= Introduction =
+
+RubyCAS-Server can retrieve user data from many different sources, including LDAP, ActiveDirectory, and a SQL database. These various data sources are each facilitated by "Authenticator" classes that implement their respective protocols. For a SQL data source, two different Authenticators are available: the plain SQL authenticator, and the more secure SQLEncrypted authenticator. This page explains how to use the latter.
+
+= SQL vs SQLEncrypted =
+
+The plain SQL authenticator expects user passwords to be stored as plain text in your SQL database. This makes deploying the SQL authenticator easy, but poses an obvious security risk (not necessarily for your CAS server, but certainly for your users should an intruder gain access to your user database).
+
+If this is a concern for you, consider using SQLEncrypted. This authenticator encrypts passwords using SHA1 and an additional 'salt' string. The user password along with the salt is stored in the database in an encrypted format, making it virtually impossible for an intruder to obtain a user's password from your database.
+
+= User Model Requirements =
+
+Before you can use the SQLEncrypted authenticator, you'll have to make some changes to your application's user model (that is, the ActiveRecord class that defines 'user' records in your CAS-protected applications).
+
+These instructions are targeted at Ruby on Rails applications. You'll have to improvise if your target application uses some other framework.
+
+First off, your users table must have the following columns:
+
+  * `encrypted_password` -- a `varchar(255)`; the encrypted password will be stored here
+  * `encryption_salt` -- also a `varchar(255)`; this is a random string populated when the user record is first created, used to encrypt the password for that user
+
+Here is a migration that will take care of this for you:
+
+{{{
+class AddEncryptedPasswordToUsers < ActiveRecord::Migration
+  def self.up
+    add_column :users, :encrypted_password, :string
+    add_column :users, :encryption_salt, :string
+  end
+  def self.down
+    remove_column :users, :encryption_salt
+    remove_column :users, :encrypted_password
+  end
+end
+}}}
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
