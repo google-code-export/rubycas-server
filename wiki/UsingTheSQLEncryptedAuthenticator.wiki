@@ -51,6 +51,29 @@ end
 
 Whenever a new user account is created, an `encryption_hash` will automatically be created (it will also be generated for existing accounts without an `encryption_hash`).
 
+= YAML Configuration =
+
+Now that your application is ready to start using encrypted passwords, you will need to modify your CAS server configuration (by default located in `/etc/rubycas-server/config.yml`).
+
+Your configuration should look something like this:
+
+{{{
+authenticator:
+  class: CASServer::Authenticators::SQLEncrypted
+  database:
+    adapter: mysql
+    database: some_database_with_users_table
+    username: root
+    password: 
+    server: localhost
+  user_table: users
+  username_column: username
+}}}
+
+Note that this is more or less identical to the standard SQL authenticator configuration, with the difference that it is not possible to specify an alternative `password_column` value -- this must always be `encrypted_password`.
+
+= Encrypting Existing Passwords =
+
 If you have existing accounts with a plain text password, you'll have to encrypt them. Fire up your Rails console and run something like the following:
 
 {{{
