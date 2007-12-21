@@ -1,4 +1,5 @@
 #summary Explains how to use the SQLEncrypted authenticator for more secure password storage.
+#labels Phase-Deploy
 
 = Introduction =
 
@@ -10,7 +11,7 @@ RubyCAS-Server can retrieve user data from many different sources, including LDA
 
 If this is a concern for you, consider using SQLEncrypted. This authenticator encrypts passwords using SHA1 and an additional 'salt' string. The user password along with the salt is stored in the database in an encrypted format, making it virtually impossible for an intruder to obtain a user's password from your database.
 
-= User Model Requirements =
+= Deploying the SQLEncrypted Authenticator =
 
 Before you can use the SQLEncrypted authenticator, you'll have to make some changes to your application's user model (that is, the ActiveRecord class that defines 'user' records in your CAS-protected applications).
 
@@ -36,9 +37,28 @@ class AddEncryptedPasswordToUsers < ActiveRecord::Migration
 end
 }}}
 
-= Details =
+You will also need to include the `EncryptedPassword` module into user user model:
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+{{{
+require 'casserver/authenticators/sql_encrypted'
+
+class User < ActiveRecord::Base
+  include CASServer::Authenticators::SQLEncrypted::EncryptedPassword
+
+  # ...
+end
+}}}
+
+Whenever a new user account is created, an `encryption_hash` will automatically be created (it will also be generated for existing accounts without an `encryption_hash`).
+
+If you have existing accounts with a plain text password, you'll have to encrypt them. Fire up your Rails console and run something like the following:
+
+{{{
+User.find(:all).each do |u|
+  u.save!
+  u.password = u.password
+  u.save!
+end
+}}}
+
+The first `save!` ensures that `encryption_hash` is generated. The `password=` method then automatically encrypts the user's existing password and stores it in the `encrypted_password` column.
