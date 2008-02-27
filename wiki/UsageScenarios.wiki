@@ -49,7 +49,34 @@ Your websites to be protected by CAS should be configured as described in the [H
 
 == Scenario 2: Public Website with private member/administration pages ==
 
-_To be written_
+Your web application(s) are publicly accessible by anonymous users, but on the homepage you want to provide a _Login_ link allowing members to authenticate with CAS. Once authenticated, users should see a customized version of the home page (for example with a "Hello, John Smith!" message). Some areas should also require CAS authentication (i.e. no anonymous access).
+
+=== Using CAS Gatewaying ===
+
+Have a look at the [HowToConfigure] guide for general info on setting up the CAS server and CAS client. The only difference here has to do with how you set up the CAS client. Namely, we will use CAS' "gateway" mechanism, which makes authentication optional.
+
+When you come to configuring the CAS client, you'll want to use the gateway option. For a Rails application, you would do something like the following:
+
+<code ruby>
+class MyController < ApplicationController
+  before_filter CASClient::Frameworks::Rails::GatewayFilter, :only => :index
+  before_filter CASClient::Frameworks::Rails::Filter, :except => :index
+end
+</code>
+
+Now the 'index' action will be protected by the CAS GatewayFilter. All other actions will be handled by the normal CAS Filter.
+
+With the GatewayFilter, if the incoming user already has an open CAS session, this will be detected and the filter will set session[:cas_user] to the user's CAS username. If they do not yet have an open CAS session, they will still be allowed through but session[:cas_user] will be nil.
+
+=== Performance/Scalability with Mongrel, Reverse-Proxying, and Clustering ===
+
+By default RubyCAS-Server runs using the built-in WEBrick web server. This works out of the box with minimal configuration, but since WEBrick is implemented entirely in Ruby, it's performance in high-load situation may not be up to par.
+
+One solution is to use the Mongrel web server instead of WEBrick. This is easily done by modifying the 'server' option in your RubyCAS-Server configuration file. However, unlike WEBrick, Mongrel does not support SSL. This is obviously a problem since CAS requires all transactions to be done over SSL.
+
+To get around this, you will have to put your Mongrel instance behind a reverse HTTP proxy. Using a reverse proxy also opens up the possibility of clustering and load-balancing multiple instances of RubyCAS-Server. If you're already using Apache and aren't afraid to edit some complicated .conf files, you can try configuring Apache as a reverse proxy using ''mod_proxy''. For a simpler, stand-alone solution, try [[http://www.apsis.ch/pound/ Pound]].
+
+A guide for configuring Apache for reverse proxying with Mongrel is available [[http://mongrel.rubyforge.org/wiki/Apache here]]. For Pound, try [[http://mongrel.rubyforge.org/wiki/Pound here]].
 
 
 ---
