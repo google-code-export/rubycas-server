@@ -57,7 +57,7 @@ For Rails, we will use [http://code.google.com/p/rubycas-client/ RubyCAS-Client]
     `./script/plugin install http://rubycas-client.googlecode.com/svn/trunk/rubycas-client`
   # Somewhere in your Rails apps' `config/environment.rb` file, add the following line:
     `CASClient::Frameworks::Rails::Filter.configure(:cas_base_url => "https://login.example.com/") `
-  # Since we want to protect the entire Rails application (rather than just some subset of controllers), we will add the following filter to our ApplicationController:
+  # Since we want to protect the entire Rails application (rather than just some subset of controllers), we will add the following filter to our !ApplicationController:
     {{{
 class ApplicationController < ActionController::Base
   before_filter CASClient::Frameworks::Rails::Filter
