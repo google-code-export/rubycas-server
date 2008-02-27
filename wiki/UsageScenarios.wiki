@@ -74,9 +74,9 @@ By default RubyCAS-Server runs using the built-in WEBrick web server. This works
 
 One solution is to use the Mongrel web server instead of WEBrick. This is easily done by modifying the 'server' option in your RubyCAS-Server configuration file. However, unlike WEBrick, Mongrel does not support SSL. This is obviously a problem since CAS requires all transactions to be done over SSL.
 
-To get around this, you will have to put your Mongrel instance behind a reverse HTTP proxy. Using a reverse proxy also opens up the possibility of clustering and load-balancing multiple instances of RubyCAS-Server. If you're already using Apache and aren't afraid to edit some complicated .conf files, you can try configuring Apache as a reverse proxy using ''mod_proxy''. For a simpler, stand-alone solution, try [[http://www.apsis.ch/pound/ Pound]].
+To get around this, you will have to put your Mongrel instance behind a reverse HTTPS proxy. Using a reverse proxy also opens up the possibility of clustering and load-balancing multiple instances of RubyCAS-Server. If you're already using Apache and aren't afraid to edit some complicated .conf files, you can try configuring Apache as a reverse proxy using ''mod_proxy''. For a simpler, stand-alone solution, try [[http://www.apsis.ch/pound/ Pound]].
 
-A guide for configuring Apache for reverse proxying with Mongrel is available [[http://mongrel.rubyforge.org/wiki/Apache here]]. For Pound, try [[http://mongrel.rubyforge.org/wiki/Pound here]].
+A guide for configuring Apache for reverse proxying with Mongrel is available [http://mongrel.rubyforge.org/wiki/Apache here]. For Pound, try [http://mongrel.rubyforge.org/wiki/Pound here].
 
 
 ---
