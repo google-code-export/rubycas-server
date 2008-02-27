@@ -71,14 +71,16 @@ With the !GatewayFilter, if the incoming user already has an open CAS session, t
 You'll also want to provide some sort of "Login" link that users can click on to authenticate themselves. Here's how to do it in a Rails view:
 
 {{{
-<%= link_to("Login", CASClient::Frameworks::Rails::Filter.client.login_url) %>
+<%= link_to("Login", CASClient::Frameworks::Rails::Filter.client.login_url) unless session[:cas_user] %>
 }}}
 
 If you also want a "Logout" link:
 
 {{{
+<% if session[:cas_user] %>
 Hello, <%= session[:cas_user] %>!<br />
 <%= link_to("Logout", CASClient::Frameworks::Rails::Filter.client.logout_url) %>
+<% end %>
 }}}
 
 === Performance/Scalability with Mongrel, Reverse-Proxying, and Clustering ===
