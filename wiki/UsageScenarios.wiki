@@ -72,9 +72,9 @@ With the !GatewayFilter, if the incoming user already has an open CAS session, t
 
 By default RubyCAS-Server runs using the built-in WEBrick web server. This works out of the box with minimal configuration, but since WEBrick is implemented entirely in Ruby, it's performance in high-load situation may not be up to par.
 
-One solution is to use the Mongrel web server instead of WEBrick. This is easily done by modifying the 'server' option in your RubyCAS-Server configuration file. However, unlike WEBrick, Mongrel does not support SSL. This is obviously a problem since CAS requires all transactions to be done over SSL.
+One solution is to use the *Mongrel* web server instead of WEBrick. This is easily done by changin the 'server' option in your RubyCAS-Server configuration file from 'webrick' to 'mongrel'. However, unlike WEBrick, Mongrel does not support SSL. This is obviously a problem since CAS requires all transactions to be done over SSL.
 
-To get around this, you will have to put your Mongrel instance behind a reverse HTTPS proxy. Using a reverse proxy also opens up the possibility of clustering and load-balancing multiple instances of RubyCAS-Server. If you're already using Apache and aren't afraid to edit some complicated .conf files, you can try configuring Apache as a reverse proxy using ''mod_proxy''. For a simpler, stand-alone solution, try [[http://www.apsis.ch/pound/ Pound]].
+To get around this, you will have to put your Mongrel instance behind a *reverse HTTPS proxy*. Using a reverse proxy also opens up the possibility of clustering and load-balancing multiple instances of RubyCAS-Server. If you're already using *Apache* and aren't afraid to edit some complicated .conf files, you can try configuring Apache as a reverse proxy using ''mod_proxy''. For a simpler, stand-alone solution, try [http://www.apsis.ch/pound/ Pound].
 
 A guide for configuring Apache for reverse proxying with Mongrel is available [http://mongrel.rubyforge.org/wiki/Apache here]. For Pound, try [http://mongrel.rubyforge.org/wiki/Pound here].
 
