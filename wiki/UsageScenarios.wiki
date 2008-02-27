@@ -83,7 +83,7 @@ If you also want a "Logout" link:
 <% end %>
 }}}
 
-=== Performance/Scalability with Mongrel, Reverse-Proxying, and Clustering ===
+=== Performance/Scalability with Mongrel, Reverse HTTP Proxying, and Clustering ===
 
 By default RubyCAS-Server runs using the built-in WEBrick web server. This works out of the box with minimal configuration, but since WEBrick is implemented entirely in Ruby, it's performance in high-load situation may not be up to par.
 
