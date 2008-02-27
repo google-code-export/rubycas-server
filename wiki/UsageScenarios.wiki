@@ -78,8 +78,8 @@ If you also want a "Logout" link:
 
 {{{
 <% if session[:cas_user] %>
-Hello, <%= session[:cas_user] %>!<br />
-<%= link_to("Logout", CASClient::Frameworks::Rails::Filter.client.logout_url) %>
+  Hello, <%= session[:cas_user] %>!<br />
+  <%= link_to("Logout", CASClient::Frameworks::Rails::Filter.client.logout_url) %>
 <% end %>
 }}}
 
