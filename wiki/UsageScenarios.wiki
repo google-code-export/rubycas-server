@@ -40,7 +40,7 @@ The standard configuration described in the [HowToConfigure] guide more or less 
 
 The default _webrick_ server is probably good enough, unless you expect the CAS server to receive heavy traffic (i.e. you are in a large organization, with thousands of users). If performance is an issue, have a look at the _Apache_ + _mongrel_ configuration discussed in *Scenario 2: Public Website*.
 
-Since under this scenario our user database is stored in Active Directory, we will use the ActiveDirectoryLDAP authenticator. An example of an AD authenticator configuration is provided in the default RubyCAS-Server configuration. Uncomment this and modify it for your needs. You should create a basic user account in AD for the CAS server, and provide the username and password in the configuration. RubyCAS-Server needs this account to log in to the AD LDAP serve, in order to validate any given user credentials.
+Since under this scenario our user database is stored in Active Directory, we will use the !ActiveDirectoryLDAP authenticator. An example of an AD authenticator configuration is provided in the default RubyCAS-Server configuration. Uncomment this and modify it for your needs. You should create a basic user account in AD for the CAS server, and provide the username and password in the configuration. RubyCAS-Server needs this account to log in to the AD LDAP serve, in order to validate any given user credentials.
 
 Your websites to be protected by CAS should be configured as described in the [HowToConfigure] guide. Be sure that the appropriate CAS filters are enacted for all content that needs to be protected. For example, in Rails this means adding the CAS filter to your base ApplicationController. In PHP, it means including the phpCAS code at the top of every page.
 
@@ -53,7 +53,7 @@ Your web application(s) are publicly accessible by anonymous users, but on the h
 
 === Optional Authentication with CAS Gatewaying ===
 
-Have a look at the [HowToConfigure] guide for general info on setting up the CAS server and CAS client. The only difference here has to do with how you set up the CAS client. Namely, we will use CAS' "gateway" mechanism, which makes authentication optional.
+Have a look at *Scenario 1* above and the [HowToConfigure] guide for general info on setting up the CAS server and CAS client. The only difference here has to do with how you set up the CAS client. Namely, we will use CAS' "gateway" mechanism, which makes authentication optional.
 
 When you come to configuring the CAS client, you'll want to use the gateway option. For a Rails application, you would do something like the following:
 
@@ -64,9 +64,9 @@ class MyController < ApplicationController
 end
 }}}
 
-Now the 'index' action will be protected by the CAS GatewayFilter. All other actions will be handled by the normal CAS Filter.
+Now the 'index' action will be protected by the CAS !GatewayFilter. All other actions will be handled by the normal CAS Filter.
 
-With the GatewayFilter, if the incoming user already has an open CAS session, this will be detected and the filter will set session[:cas_user] to the user's CAS username. If they do not yet have an open CAS session, they will still be allowed through but session[:cas_user] will be nil.
+With the !GatewayFilter, if the incoming user already has an open CAS session, this will be detected and the filter will set session[:cas_user] to the user's CAS username. If they do not yet have an open CAS session, they will still be allowed through but session[:cas_user] will be nil.
 
 === Performance/Scalability with Mongrel, Reverse-Proxying, and Clustering ===
 
