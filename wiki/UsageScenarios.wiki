@@ -57,12 +57,12 @@ Have a look at the [HowToConfigure] guide for general info on setting up the CAS
 
 When you come to configuring the CAS client, you'll want to use the gateway option. For a Rails application, you would do something like the following:
 
-<code ruby>
+{{{
 class MyController < ApplicationController
   before_filter CASClient::Frameworks::Rails::GatewayFilter, :only => :index
   before_filter CASClient::Frameworks::Rails::Filter, :except => :index
 end
-</code>
+}}}
 
 Now the 'index' action will be protected by the CAS GatewayFilter. All other actions will be handled by the normal CAS Filter.
 
