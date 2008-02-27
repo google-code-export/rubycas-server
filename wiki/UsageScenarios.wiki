@@ -68,6 +68,19 @@ Now the 'index' action will be protected by the CAS !GatewayFilter. All other ac
 
 With the !GatewayFilter, if the incoming user already has an open CAS session, this will be detected and the filter will set session[:cas_user] to the user's CAS username. If they do not yet have an open CAS session, they will still be allowed through but session[:cas_user] will be nil.
 
+You'll also want to provide some sort of "Login" link that users can click on to authenticate themselves. Here's how to do it in a Rails view:
+
+{{{
+<%= link_to("Login", CASClient::Frameworks::Rails::Filter.client.login_url) %>
+}}}
+
+If you also want a "Logout" link:
+
+{{{
+Hello, <%= session[:cas_user] %>!<br />
+<%= link_to("Logout", CASClient::Frameworks::Rails::Filter.client.logout_url) %>
+}}}
+
 === Performance/Scalability with Mongrel, Reverse-Proxying, and Clustering ===
 
 By default RubyCAS-Server runs using the built-in WEBrick web server. This works out of the box with minimal configuration, but since WEBrick is implemented entirely in Ruby, it's performance in high-load situation may not be up to par.
