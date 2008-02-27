@@ -20,7 +20,7 @@ Four main scenarios are covered:
 
 ---
 
-== Scenario 1: Company Intranet ==
+== Scenario 1: Low-load Company Intranet ==
 
 Your company or organization has several web applications, all of which should be accessible only to authenticated users. Accessing any page within these websites should automatically redirect the user to the CAS login screen. Your user accounts are stored and managed by Active Directory. This is, more or less, the canonical CAS usage scenario.
 
@@ -47,11 +47,11 @@ Your websites to be protected by CAS should be configured as described in the [H
 
 ---
 
-== Scenario 2: Public Website with private member/administration pages ==
+== Scenario 2: Public Website with high load and/or optional authentication ==
 
 Your web application(s) are publicly accessible by anonymous users, but on the homepage you want to provide a _Login_ link allowing members to authenticate with CAS. Once authenticated, users should see a customized version of the home page (for example with a "Hello, John Smith!" message). Some areas should also require CAS authentication (i.e. no anonymous access).
 
-=== Using CAS Gatewaying ===
+=== Optional Authentication with CAS Gatewaying ===
 
 Have a look at the [HowToConfigure] guide for general info on setting up the CAS server and CAS client. The only difference here has to do with how you set up the CAS client. Namely, we will use CAS' "gateway" mechanism, which makes authentication optional.
 
