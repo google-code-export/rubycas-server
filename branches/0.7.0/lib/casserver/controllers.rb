@@ -197,16 +197,26 @@ module CASServer::Controllers
       @cookies.delete :tgt
       
       if tgt
-        pgts = CASServer::Models::ProxyGrantingTicket.find(:all, 
-          :conditions => ["username = ?", tgt.username],
-          :include => :service_ticket)
-        pgts.each do |pgt|
-          $LOG.debug("Deleting Proxy-Granting Ticket '#{pgt}' for user '#{pgt.service_ticket.username}'")
-          pgt.destroy
-        end
-        
-        $LOG.debug("Deleting Ticket-Granting Ticket '#{tgt}' for user '#{tgt.username}'")
-        tgt.destroy
+        CASServer::Models::TicketGrantingTicket.transaction do
+          pgts = CASServer::Models::ProxyGrantingTicket.find(:all, 
+            :conditions => ["username = ?", tgt.username],
+            :include => :service_ticket)
+          pgts.each do |pgt|
+            $LOG.debug("Deleting Proxy-Granting Ticket '#{pgt}' for user '#{pgt.service_ticket.username}'")
+            pgt.destroy
+          end
+          
+          $LOG.debug("Deleting Ticket-Granting Ticket '#{tgt}' for user '#{tgt.username}'")
+          tgt.destroy
+          
+          CASServer::Models::ServiceTicket.find_all_by_username(tgt.username).each do |st|
+            send_logout_notification_for_service_ticket(st)
+            # TODO: Maybe we should so something else if send_logout_notification_for_service_ticket fails? 
+            #       Note that the method returns false if the POST results in a non-200 HTTP response.
+            $LOG.debug "Deleting #{st.class} #{st.ticket.inspect}."
+            st.destroy
+          end
+        end  
         
         $LOG.info("User '#{tgt.username}' logged out.")
       else
