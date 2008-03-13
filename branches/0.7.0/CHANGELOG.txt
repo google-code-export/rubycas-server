@@ -14,6 +14,8 @@
   and instructing the user to click on a link to follow the given URL. If the
   'url' parameter is given, the login form will NOT be shown on the logout
   page (see above).
+* Implemented single-sign-out functionality as specified in CAS 3.1.  See
+  http://www.ja-sig.org/wiki/display/CASUM/Single+Sign+Out. 
 * When an authentication failure occurs (because the user submitted
   invalid credentials or the login ticket is missing), the server
   now returns a 401 (Unauthorized) response instead of 200.

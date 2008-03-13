@@ -209,12 +209,14 @@ module CASServer::Controllers
           $LOG.debug("Deleting Ticket-Granting Ticket '#{tgt}' for user '#{tgt.username}'")
           tgt.destroy
           
-          CASServer::Models::ServiceTicket.find_all_by_username(tgt.username).each do |st|
-            send_logout_notification_for_service_ticket(st)
-            # TODO: Maybe we should so something else if send_logout_notification_for_service_ticket fails? 
-            #       Note that the method returns false if the POST results in a non-200 HTTP response.
-            $LOG.debug "Deleting #{st.class} #{st.ticket.inspect}."
-            st.destroy
+          if CASServer::Conf.enable_single_sign_out
+            CASServer::Models::ServiceTicket.find_all_by_username(tgt.username).each do |st|
+              send_logout_notification_for_service_ticket(st)
+              # TODO: Maybe we should so something else if send_logout_notification_for_service_ticket fails? 
+              #       Note that the method returns false if the POST results in a non-200 HTTP response.
+              $LOG.debug "Deleting #{st.class} #{st.ticket.inspect}."
+              st.destroy
+          end
           end
         end  
         
