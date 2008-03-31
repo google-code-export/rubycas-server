@@ -320,7 +320,7 @@ log:
 # If you would prefer that ticket-granting ticket expiry be enforced (in effect 
 # limiting the maximum length of a session), you can set expire_sessions to true.
 
-# expire_sessions: false
+#expire_sessions: false
 
 
 # If you want the usernames entered on the login page to be automatically 
@@ -329,4 +329,4 @@ log:
 # system will automatically
 # convert this to "jsmith".
 
-# downcase_username: true
+#downcase_username: true

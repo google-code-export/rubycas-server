@@ -95,6 +95,9 @@ module CASServer::Controllers
       @password = @input['password']
       @lt = @input['lt']
       
+      # Remove leading and trailing widespace from username.
+      @username.strip! if @username
+      
       if @username && $CONF[:downcase_username]
         $LOG.debug("Converting username #{@username.inspect} to lowercase because 'downcase_username' option is enabled.")
         @username.downcase!
@@ -144,9 +147,14 @@ module CASServer::Controllers
           expiry_info = " It will not expire."
         end
         
-        # TODO: Set expiry time for the cookie when expire_sessions is true. Unfortunately there doesn't
-        #        seem to be an easy way to set cookie expire times in Camping :(
-        @cookies[:tgt] = tgt.to_s
+        if CASServer::Conf.expire_sessions
+          @cookies[:tgt] = {
+            :value => tgt.to_s, 
+            :expires => Time.now + CASServer::Conf.ticket_granting_ticket_expiry
+          }
+        else
+          @cookies[:tgt] = tgt.to_s
+        end
         
         $LOG.debug("Ticket granting cookie '#{@cookies[:tgt]}' granted to '#{@username}'. #{expiry_info}")
                 
@@ -314,10 +322,6 @@ module CASServer::Controllers
       
       t, @error = validate_proxy_ticket(@service, @ticket)      
       @success = t && !@error
-      
-      if @success
-        
-      end
       
       if @success
         @username = t.username

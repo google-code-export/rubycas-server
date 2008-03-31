@@ -1,3 +1,12 @@
+=== 0.7.0 :: In Progress
+
+* Implemented single-sign-out functionality as specified in CAS 3.1.  See
+  http://www.ja-sig.org/wiki/display/CASUM/Single+Sign+Out. 
+* The expire_sessions config variable is now respected -- ticket granting
+  ticket cookies are set with an expiry datetime, so that the SSO session
+  is effectively terminated once the ticket_granting_ticket_expiry period
+  is reached.
+
 === 0.6.0 :: In Progress
 
 * Much of the supporting functionality that makes RubyCAS-Server
@@ -14,8 +23,6 @@
   and instructing the user to click on a link to follow the given URL. If the
   'url' parameter is given, the login form will NOT be shown on the logout
   page (see above).
-* Implemented single-sign-out functionality as specified in CAS 3.1.  See
-  http://www.ja-sig.org/wiki/display/CASUM/Single+Sign+Out. 
 * When an authentication failure occurs (because the user submitted
   invalid credentials or the login ticket is missing), the server
   now returns a 401 (Unauthorized) response instead of 200.
