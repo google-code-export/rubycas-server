@@ -1,0 +1,31 @@
+=Quick Start Instllation=
+
+==Requirements==
+
+    * Ruby 1.8.4 or newer
+    * RubyGems
+    * Ruby bindings for your preferred database. MySQL will probably work out-of-the-box. For other databases like SQLite3 and PostgreSQL you may have to install ruby libraries first.
+    * An SSL certificate (CAS requires SSL)
+    * A Linux machine (RubyCAS-Server should work on other platforms, but currently has only been tested under Linux) 
+
+Installation & Usage
+
+   1. Make sure you have all of the requirements listed above.
+   2. Install RubyCAS-Server: gem install rubycas-server (you must be root to do this, so try it with sudo). This will install the package from rubyforge.org, along with the necessary dependencies (camping, activesupport, activerecord, etc.). If you are installing locally via a manually downloaded gem file, you will have to get the dependencies yourself, so the default method of installing it via rubyforge is strongly recommended.
+   3. Run /usr/bin/rubycas-server. you should get an error message about a missing configuration file; a sample config will be created for you at /etc/rubycas-server/config.yml.
+   4. Edit the sample configuration to match your needs. The file is well documented, so you should be able to figure it out. Be sure to uncomment one of the 'authenticator' configurations. Also, be careful about indentation. Use only spaces, not tabs! The configuration uses YAML, which is very sensitive to indentation.
+   5. Run /usr/bin/rubycas-server (try /usr/bin/rubycas-server -h for a list of command-line options). 
+
+You should now be up and running. The server's output should show you the URL where you can access the CAS login page.
+
+More detailed configuration information is available at HowToConfigure and UsageScenarios, but if you prefer to jump right in, you should be able to figure things out based on the comments in the sample config.
+Installing as an init.d service
+
+Optionally, you can set up RubyCAS-Server to run as a background service on your linux server using the init.d mechanism:
+
+   1. In the resources subdirectory of the RubyCAS-Server distribution, you'll find an init.d.sh script. Rename this to /etc/init.d/rubcas-server. (If you installed RubyCAS-Server as a gem, you should find this in something like /usr/lib/ruby/gems/1.8/gems/rubycas-server-0.4.0/resources/init.d.sh).
+   2. Add the rubycas-server script to startup. This should be something like chkconfig -a rubycas-server (on Debian/Ubuntu, it will probably be update-rc.d rubycas-server defaults). 
+
+The init.d script simply uses the rubycas-server-ctl script to start and launch the server. If you wish, you can do this manually; rubycas-server-ctl start starts the server, and rubycas-server-ctl stop stops it. If you run into trouble with the init.d script, try manually running rubycas-server-ctl start --verbose and you should get a detailed explanation of the problem.
+
+If you encounter any problems with RubyCAS-Server, please do not hesitate to open an issue ticket! 
