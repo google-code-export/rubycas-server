@@ -6,7 +6,7 @@
 To set up a full CAS infrastructure you will have to:
 
   # *Install the CAS server for your organization* (i.e. install RubyCAS-Server, although other implementations exist, such as [http://www.ja-sig.org/products/cas/ JA-SIG CAS])
-  # *Configure the CAS server's method for validating usernames and passwords.* RubyCAS-Server can authenticate against LDAP, a SQL database, Active Directory, etc.
+  # *Configure the CAS server's method for validating usernames and passwords.* Out of the box RubyCAS-Server can authenticate against LDAP, a SQL database, Active Directory, etc. It is also relatively easy to write a custom authenticator with a little bit of Ruby coding.
   # *Add CAS clients to your web applications.* CAS clients are available for most major web frameworks, including [http://www.ja-sig.org/products/cas/client/javaclient/ Java], [http://esup-phpcas.sourceforge.net PHP], and [http://rubyforge.org/projects/rubycas-client/ Ruby on Rails].
 
 =Installation=
