@@ -1,8 +1,6 @@
 #labels Featured
 =Installation=
 
-==Quick Start==
-
 ===Requirements===
 
   * [http://www.ruby-lang.org/en/downloads/ Ruby 1.8.4] or newer
