@@ -1,6 +1,7 @@
-#labels Featured,Phase-Deploy
-=Installation=
 #summary Step-by-step installation and usage instructions
+#labels Featured,Phase-Deploy
+
+=Installation=
 
 ===Requirements===
 
