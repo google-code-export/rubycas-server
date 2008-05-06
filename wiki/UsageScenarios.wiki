@@ -105,3 +105,5 @@ _To be written_
 == Scenario 4: Web Services (SOAP, RPC, REST, etc.) ==
 
 _To be written_
+
+See http://groups.google.com/group/rubycas-server/t/d04731de27e5824c for some general ideas on how to do this.
