@@ -51,7 +51,7 @@ We will assume that your CAS server is accessible at https://login.example.com/c
 
 ==== Rails ====
 
-For Rails, we will use [http://code.google.com/p/rubycas-client/ RubyCAS-Client]. This works as a standard Rails controller filter. Detailed installation and configuration instructions are available at http://rubycas-client.rubyforge.org/files/README.html, but very roughly speaking, you should do this:
+For Rails, we will use [http://code.google.com/p/rubycas-client/ RubyCAS-Client]. This works as a standard Rails controller filter. Detailed installation and configuration instructions are available at http://rubycas-client.rubyforge.org/files/README_txt.html, but very roughly speaking, you should do this:
 
   # `cd` into your Rails apps' root directory and type:
     `./script/plugin install http://rubycas-client.googlecode.com/svn/trunk/rubycas-client`
