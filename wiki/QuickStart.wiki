@@ -24,7 +24,10 @@ To set up a full CAS infrastructure you will have to:
   # Make sure you have all of the requirements listed above.
   # Install RubyCAS-Server: `gem install rubycas-server` (you must be root to do this, so try it with `sudo`). This will install the package from rubyforge.org, along with the necessary dependencies ([http://camping-picnic.googlecode.com picnic], activesupport, activerecord, etc.). If you are installing locally via a manually downloaded gem file, you will have to get the dependencies yourself, so the default method of installing it via rubyforge is strongly recommended.
   # Run `/usr/bin/rubycas-server`. you should get an error message about a missing configuration file; a sample config will be created for you at {{{/etc/rubycas-server/config.yml}}}.
-  # Edit the sample configuration to match your needs. The file is well documented, so you should be able to figure it out. Be sure to uncomment one of the 'authenticator' configurations. Also, be careful about indentation. *Use only spaces, not tabs!* The configuration uses YAML, which is very sensitive to indentation.
+  # Edit the sample configuration to match your needs. The file is well documented, so you should be able to figure it out. 
+    # If you don't have an SSL certificate yet, you can download a sample certificate for testing purposes [http://rubycas-server.googlecode.com/files/rubycas-server-demo.pem here].
+    # Be sure to uncomment one of the 'authenticator' configurations. 
+    # Be careful about indentation. *Use only spaces, not tabs!* The configuration uses YAML, which is very sensitive to indentation.
   # Run `/usr/bin/rubycas-server` (try `/usr/bin/rubycas-server -h` for a list of command-line options).
 
 You should now be up and running. The server's output should show you the URL where you can access the CAS login page.
