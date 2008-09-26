@@ -85,3 +85,7 @@ end
 }}}
 
 The first `save!` ensures that `encryption_hash` is generated. The `password=` method then automatically encrypts the user's existing password and stores it in the `encrypted_password` column.
+
+= Using MD5 Encyrption Instead of SHA256 =
+
+The SQLEncrypted authenticator uses the SHA256 algorithm to do its encryption. If you prefer to use the MD5 algorithm instead (for example because you're working with an existing user database where the passwords are already encrypted using MD5), have a look at the [http://code.google.com/p/rubycas-server/source/browse/trunk/lib/casserver/authenticators/sql_md5.rb SQLMd5 authenticator]. The instructions for using the MD5 authenticator are similar as for the standard SQLEncrypted authenticator described above. Note though that there is no 'encryption_salt' for MD5, and be sure to use `sql_md5.rb` in place of `sql_encrypted.rb`.
