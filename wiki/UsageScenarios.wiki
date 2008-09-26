@@ -7,7 +7,7 @@ There are many ways to make use of the CAS architecture. CAS can be used as a ba
 
 This page describes some of the more common usage scenarios and explains how to implement  them using RubyCAS-Server. When discussing the client side of the CAS equation, we often refer to [http://code.google.com/p/rubycas-client/ RubyCAS-Client], however any full-featured CAS client can be used (this should be true for the CAS server as well).
 
-*Before looking at any of these scenarios*, you should have a look at the [HowToConfigure basic configuration guide] for RubyCAS-Server. The various configurations described below assume that you already have a basic RubyCAS-Server up and running.
+*Before looking at any of these scenarios*, you should have a look at the [HowToConfigure basic configuration guide] for RubyCAS-Server. The various configurations described below assume that you already have a basic RubyCAS-Server up and running and are ready to start thinking about how to integrate it with other applications and services.
 
 = Scenarios =
 
