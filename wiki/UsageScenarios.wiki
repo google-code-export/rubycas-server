@@ -100,7 +100,7 @@ A guide for configuring Apache for reverse proxying with Mongrel is available [h
 
 _To be written_
 
-See http://groups.google.com/group/rubycas-server/browse_thread/thread/fc7d782fb78229b3/77b4de11031fa404?lnk=gst&q=portal#77b4de11031fa404 for some general ideas on how to use CAS in a Portal-type deployment. The key idea here is that you should use "Proxy Ticketing".
+See http://groups.google.com/group/rubycas-server/browse_thread/thread/fc7d782fb78229b3/77b4de11031fa404?lnk=gst&q=portal#77b4de11031fa404 for some general ideas on how to use CAS in a portal-type deployment. The key point here is that this is best done by using proxy ticketing. Also, read the section "How to act as a CAS proxy" in the RubyCAS-Client documentation: http://rubycas-client.rubyforge.org/
 
 ---
 
