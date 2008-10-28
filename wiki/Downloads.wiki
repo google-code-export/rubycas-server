@@ -26,7 +26,9 @@ RubyCAS-Server should now be installed. Try running `rubycas-server` from your c
 
 The first time you run RubyCAS-Server, the server will try to create a default configuration file for you in `/etc/rubycas-server/config.yml` and will then exit. Have a look inside this file and edit it to your needs. RubyCAS-Server requires a SQL database; configuration examples are provided for various database servers (MySQL, PostgreSQL, SQLite, etc.). Before running the `rubycas-server` command again, make sure that the database you've configured is ready to be used. For example, if you're using mysql, you'll have to create the database first:
 
-{{{mysqladmin -u root -p create rubycas}}}
+{{{
+mysqladmin -u root -p create casserver
+}}}
 
 Once you've configured everything and granted access to the database, run `rubycas-server` again. The server should start up this time and run in the foreground.
 
