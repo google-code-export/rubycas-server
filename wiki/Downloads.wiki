@@ -8,7 +8,7 @@ If you already have Ruby installed, you should be able to install RubyCAS-Server
 gem install rubycas-server
 }}}
 
-A number of dependencies will be installed, and you should be good to go. Head over to the [Installation] wiki page for further info. However if the above doesn't work for you, read on for detailed installation instructions.
+A number of dependencies will be installed, and you should be good to go. Head over to the QuickStart and HowToConfigure wiki pages for further info. However if the above doesn't work for you, read on for detailed installation instructions.
 
 == The Long Version ==
 
@@ -30,7 +30,7 @@ The first time you run RubyCAS-Server, the server will try to create a default c
 
 Once you've configured everything and granted access to the database, run `rubycas-server` again. The server should start up this time and run in the foreground.
 
-You can also use `rubycas-server-ctl start` to start the server in the background. See the [Installation] wiki page for further info.
+You can also use `rubycas-server-ctl start` to start the server in the background. See the QuickStart and HowToConfigure wiki pages for further info.
 
 === Installing Manually ===
 
@@ -47,7 +47,7 @@ The !RubyGem method describe above is preferred, but if you insist...
   # Untar the source archive and `cd` into the uncompressed directory.
   # Run {{{ruby setup.rb}}}.
 
-RubyCAS-Server should now be installed. See the [Installation] wiki page further instructions.
+RubyCAS-Server should now be installed. See the QuickStart and HowToConfigure wiki pages further instructions.
 
 === Obtaining the Source Code ===
 
