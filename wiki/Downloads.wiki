@@ -53,6 +53,6 @@ RubyCAS-Server should now be installed. See the QuickStart and HowToConfigure wi
 
 === Obtaining the Source Code ===
 
-RubyCAS-Server is written in a interpreted language (Ruby), so there really isn't a difference between the runable distribution and the "source code" (i.e. the RubyGem and tar packages include all of the source code).
+RubyCAS-Server is written in a interpreted language (Ruby), so there really isn't a difference between the runable distribution and the "source code" (i.e. the !RubyGem and tar packages include all of the source code).
 
 However, if you want to grab a copy of the latest development source code, have a look at RubyCAS-Server's [http://github.com/gunark/rubycas-server/tree/master Github repository], or the mirrored [http://code.google.com/p/ruby-taskr/source Subversion repo].
