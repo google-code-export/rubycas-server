@@ -9,4 +9,6 @@ This section is yet to be written, however here are some general guidelines:
     # When you're done editing your .po file, `cd` back to the root rubycas-server directory and run `rake mo`. This will generate the binary .mo file under the `locale` directory.
     # Run the server as normal.
 
-The user's preferred language should be automatically detected based on their browser's settings, but if you want to set a default language (normally it's English), change the 'default_locale' value in your config.yml file.
+The user's preferred language should be automatically detected based on their browser's settings, but if you want to set a default language (normally it's English), change the 'default_locale' value in your [HowToConfigure config.yml] file.
+
+To contribute your translations/corrections, please email your .po file to *matt at roughest dot net*.
