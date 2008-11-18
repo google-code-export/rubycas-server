@@ -1,0 +1,12 @@
+#summary How-to guide for contributing translations to RubyCAS-Server's localization files.
+
+This section is yet to be written, however here are some general guidelines:
+
+  * Localization is handled by the [http://www.yotabanana.com/hiki/ruby-gettext.html?ruby-gettext Ruby-GetText] library
+  * Translations are stored under the [http://github.com/gunark/rubycas-server/tree/master/po po] directory.
+  * You can edit translations (or create new ones) using a text-editor (for example `vim`):
+    # Put your .po file under the appropriate sub-directory (e.g.: `po/eo_AQ/rubycas-server.po` for the Esperanto language, for the Antarctica region). It's best to use an existing .po file as a template (look at `po/es_ES/rubycas-server.po` for example).
+    # When you're done editing your .po file, `cd` back to the root rubycas-server directory and run `rake mo`. This will generate the binary .mo file under the `locale` directory.
+    # Run the server as normal.
+
+The user's preferred language should be automatically detected based on their browser's settings, but if you want to set a default language (normally it's English), change the 'default_locale' value in your config.yml file.
