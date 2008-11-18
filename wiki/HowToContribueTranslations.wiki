@@ -1,4 +1,5 @@
 #summary How-to guide for contributing translations to RubyCAS-Server's localization files.
+#labels Phase-Implementation,Phase-Deploy
 
 This section is yet to be written, however here are some general guidelines:
 
