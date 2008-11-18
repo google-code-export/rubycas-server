@@ -2,7 +2,7 @@
 
 == The Easy Way ==
 
-If you already have a Ruby package installed, you should be able to install RubyCAS-Server by running the following command:
+If you already have a base Ruby installation configured for your system, you should be able to install RubyCAS-Server by running the following command:
 
 {{{
 gem install rubycas-server
