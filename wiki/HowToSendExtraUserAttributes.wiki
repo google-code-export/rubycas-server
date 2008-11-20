@@ -16,6 +16,9 @@ For the SQL and LDAP authenticators, configuring this is easy (this is also true
 
 == SQL ==
 
+In your `config.yml`:
+
+{{{
 authenticator:
   class: CASServer::Authenticators::SQL
   database:
@@ -25,6 +28,7 @@ authenticator:
   username_column: username
   password_column: password
   extra_attributes: full_name, access_level
+}}}
 
 Notice the *`extra_attributes`* option. This specifies the additional table columns to return in the CAS response.
 
