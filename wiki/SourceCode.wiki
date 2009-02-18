@@ -1,0 +1,16 @@
+#summary Info on how to access RubyCAS-Server's source code repository.
+#labels Phase-Implementation
+
+= Moved to Github =
+
+*RubyCAS-Server's source code repository has moved to [http://github.com/gunark/rubycas-server/tree/master Github]*
+
+To checkout a copy of the code using `git`:
+
+`git clone git://github.com/gunark/rubycas-server.git `
+
+Feel free to fork the main repo on Github -- this makes it easier for your patches to get pulled into the master branch.
+
+For more information please see:
+
+http://github.com/gunark/rubycas-server
