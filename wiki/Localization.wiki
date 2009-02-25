@@ -14,6 +14,8 @@ Currently the following localizations are available:
   * Polish (pl_PL)
   * Russian (ru_RU)
 
+These translations should work out of the box if you install RubyCAS-Server as a gem; otherwise you may have to build he locale .mo files by running the `rake mo` command in the RubyCAS-Server installation directory.
+
 The server should auto-detect the user's preferred language based on
 headers submitted by their browser. You can force a certain language
 to be used by adding a 'lang' parameter to the CAS URL (for example,
