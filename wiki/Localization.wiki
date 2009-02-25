@@ -1,14 +1,18 @@
 #summary Info on how to deploy RubyCAS-Server for languages other than English.
 #labels Phase-Implementation,Phase-Deploy,Phase-Support
 
+= Localization (l10n) in RubyCAS-Server
+
+Localization in RubyCAS-Server is implemented through Ruby-GetText.
+
 Currently the following localizations are available:
 
-- Geman (de_DE)
-- Spanish (es_ES)
-- French (fr_FR)
-- Japanese (ja_JP)
-- Polish (pl_PL)
-- Russian (ru_RU)
+  * Geman (de_DE)
+  * Spanish (es_ES)
+  * French (fr_FR)
+  * Japanese (ja_JP)
+  * Polish (pl_PL)
+  * Russian (ru_RU)
 
 The server should auto-detect the user's preferred language based on
 headers submitted by their browser. You can force a certain language
@@ -18,7 +22,13 @@ english to something else using the 'default_locale' option in your
 config.yml file.
 
 Most of the included localizations are machine translated, so the
-quality of the translation probably isn't very good. If you would
-like to submit corrections or additional translations please see:
+quality of the translation probably isn't very good. 
+
+If you would like to submit corrections or additional translations please see:
 
 http://code.google.com/p/rubycas-server/wiki/HowToContribueTranslations
+
+
+=== Thanks
+
+Thanks to Antono Vasiljev for implementing much of the localization code in RubyCAS-Server!
