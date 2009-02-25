@@ -1,7 +1,7 @@
 #summary Info on how to deploy RubyCAS-Server for languages other than English.
 #labels Phase-Implementation,Phase-Deploy,Phase-Support
 
-= Localization (l10n) in RubyCAS-Server
+=Localization (l10n) in RubyCAS-Server=
 
 Localization in RubyCAS-Server is implemented through Ruby-GetText.
 
@@ -29,6 +29,6 @@ If you would like to submit corrections or additional translations please see:
 http://code.google.com/p/rubycas-server/wiki/HowToContribueTranslations
 
 
-=== Thanks
+===Thanks===
 
 Thanks to Antono Vasiljev for implementing much of the localization code in RubyCAS-Server!
