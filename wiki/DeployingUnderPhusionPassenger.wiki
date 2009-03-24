@@ -1,0 +1,34 @@
+#summary Instructions on how to deploy under Phusion Passenger (mod_rails/mod_rack)
+#labels Phase-Deploy
+
+= Introduction =
+
+As of version 0.8.0, RubyCAS-Server can be deployed under Apache using the Phusion Passenger module (also known as mod_rails/mod_rack).
+
+No additional configuration is requried to run RubyCAS-Server under Passenger. Just follow the normal instructions for a Passenger app (see http://www.modrails.com/).
+
+The `server` setting in your config file (and related settings) are ignored when running under Apache, since the port, location of the SSL certificate, etc. are all configured in your Apache vhost.conf.
+
+== Example Apache vhost Config ==
+
+Here's an example Apache vhost config for RubyCAS-Server and Passenger:
+
+{{{
+Listen 442
+<VirtualHost *:442>
+  ServerAdmin admin@example.net
+  ServerName login.example.net
+
+  SSLEngine On
+  SSLCertificateFile /etc/apache2/ssl.crt/example.pem
+
+  RailsAutoDetect off
+
+  DocumentRoot /usr/lib/ruby/gems/1.8/gems/rubycas-server-0.8.0/public
+
+  <Directory "/usr/lib/ruby/gems/1.8/gems/rubycas-server-0.8.0/public">
+    AllowOverride all
+    Allow from all
+  </Directory>
+</VirtualHost>
+}}}
