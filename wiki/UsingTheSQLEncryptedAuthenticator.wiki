@@ -9,11 +9,49 @@ RubyCAS-Server can retrieve user data from many different sources, including LDA
 
 *The plain SQL authenticator expects user passwords to be stored as plain text in your SQL database.* This makes deploying the SQL authenticator easy, but poses an obvious security risk (not necessarily for your CAS server, but certainly for your users should an intruder gain access to your user database).
 
-If this is a concern for you, consider using SQLEncrypted. This authenticator encrypts passwords using SHA1 and an additional 'salt' string. The user password along with the salt is stored in the database in an encrypted format, making it virtually impossible for an intruder to obtain a user's password from your database.
+If this is a concern for you, consider using SQLEncrypted. This authenticator allows you to hook in an arbitrary encryption function of your own.
 
-= Deploying the SQLEncrypted Authenticator =
+= YAML Configuration =
 
-Before you can use the SQLEncrypted authenticator, you'll have to make some changes to your application's user model (that is, the ActiveRecord class that defines 'user' records in your CAS-protected applications).
+To use SQLEncrypted authenticator you will need to modify your CAS server configuration (by default located in `/etc/rubycas-server/config.yml`).
+
+Your configuration should look something like this:
+
+{{{
+authenticator:
+  class: CASServer::Authenticators::SQLEncrypted
+  database:
+    adapter: mysql
+    database: some_database_with_users_table
+    username: root
+    password: 
+    server: localhost
+  user_table: users
+  username_column: email_address
+  encrypt_function: 'user.crypted_password == Digest::SHA1.hexdigest("--#{user.salt}--#{@password}--")'
+}}}
+
+Note that this is more or less identical to the standard SQL authenticator configuration, with the exception of the `encrypt_function` parameter.
+
+`encrypt_function` is eval'd in the server.  Three variables are visible in the function: `user`, `@password` and `@username`.   `@password` and `@username` are the values collected on the login screen, and `user` is an ActiveRecord instance of the row in your table.  Since it uses ActiveRecord, you can access any column in the row by name.
+
+The output of `encrypt_function` should be a Boolean.   Do not use the return statement!
+
+The default values for the configuration are:
+
+{{{
+  user_table: users
+  username_column: username
+  encrypt_function:  'user.encrypted_password == Digest::SHA256.hexdigest("#{user.encryption_salt}::#{@password}")'
+}}}
+
+Note (July 7, 2009):  Current versions of rubycas-server do not have the encrypt_function parameter.  To parametrize encrypt_function, you must use the version of rubycas-server on [http://github.com/gunark/rubycas-server/tree/master GitHub].
+
+= Deploying the SQLEncrypted Authenticator using the Default encrypt_function =
+
+If you do not yet have encrypted passwords in you database, you can use the default encrypt_function and the instructions here to add encrypted passwords to your application.
+
+First you'll have to make some changes to your application's user model (that is, the ActiveRecord class that defines 'user' records in your CAS-protected applications).
 
 These instructions are targeted at Ruby on Rails applications. You'll have to improvise if your target application uses some other framework.
 
@@ -50,27 +88,6 @@ end
 }}}
 
 Whenever a new user account is created, an `encryption_hash` will automatically be created (it will also be generated for existing accounts without an `encryption_hash`).
-
-= YAML Configuration =
-
-Now that your application is ready to start using encrypted passwords, you will need to modify your CAS server configuration (by default located in `/etc/rubycas-server/config.yml`).
-
-Your configuration should look something like this:
-
-{{{
-authenticator:
-  class: CASServer::Authenticators::SQLEncrypted
-  database:
-    adapter: mysql
-    database: some_database_with_users_table
-    username: root
-    password: 
-    server: localhost
-  user_table: users
-  username_column: username
-}}}
-
-Note that this is more or less identical to the standard SQL authenticator configuration, with the difference that it is not possible to specify an alternative `password_column` value -- this must always be `encrypted_password`.
 
 = Encrypting Existing Passwords =
 
