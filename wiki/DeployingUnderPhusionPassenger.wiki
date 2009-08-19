@@ -22,7 +22,7 @@ bin/rubycas-server
 
 A sample configuration file should now be created for you under `/etc/rubycas-server/config.yml`. Edit the file to your likings -- it's well documented internally but have a look at HowToConfigure for additional help.
     
-Now set up a virtual host entry in Apache for rubycas (as shown in the example below). Assuming that you have Passenger installed properly, after restarting Apache you should find that your CAS server is up and running at https://localhost (or whatever ServerName you set in your vhost configuration).
+Now set up a virtual host entry in Apache for rubycas (as shown in the example below). Assuming that you have Passenger installed properly, after restarting Apache you should find that your CAS server is up and running at https://localhost (or whatever `ServerName` you set in your vhost configuration).
 
 By default the CAS server log is under `/var/log/casserver.log`, but you can change this location in your `config.yml` file. If you run into problems, first consult your Apache `error_log` file and then the `casserver.log`.
 
