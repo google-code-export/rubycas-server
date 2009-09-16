@@ -31,8 +31,8 @@ By default the CAS server log is under `/var/log/casserver.log`, but you can cha
 Here's an example Apache vhost config for RubyCAS-Server and Passenger:
 
 {{{
-Listen 442
-<VirtualHost *:442>
+Listen 443
+<VirtualHost *:443>
   ServerAdmin admin@example.net
   ServerName login.example.net
 
