@@ -35,7 +35,7 @@ You should now be up and running. Depending on the settings you entered in your 
 More detailed configuration information is available at HowToConfigure and UsageScenarios, but if you prefer to jump right in, you should be able to figure things out based on the comments in the sample config.
 
 
-*If you encounter any problems with RubyCAS-Server, please do not hesitate to [http://github.com/gunark/rubycas-server/issues open an issue ticket]!*
+*If you encounter any bugs or issues with RubyCAS-Server, please do not hesitate to [http://github.com/gunark/rubycas-server/issues open an issue ticket]! You can also ask for help via the [http://groups.google.com/group/rubycas-server RubyCAS Google Group]* 
 
 
 ===Installing as an `init.d` service===
