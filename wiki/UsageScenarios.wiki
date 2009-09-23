@@ -38,9 +38,9 @@ Note that it is perfectly fine for your CAS server and your CAS-protected web ap
 
 The standard configuration described in the [HowToConfigure] guide more or less covers everything you need here.
 
-The default _webrick_ server is probably good enough, unless you expect the CAS server to receive heavy traffic (i.e. you are in a large organization, with thousands of users). If performance is an issue, have a look at the _Apache_ + _mongrel_ configuration discussed in *Scenario 2: Public Website*.
+The default _webrick_ server is probably good enough, unless you expect the CAS server to receive heavy traffic (i.e. you are in a large organization, with thousands of users). If performance is an issue, have a look at the _Apache_ + _mongrel_/_passenger_ configuration discussed in *Scenario 2: Public Website*.
 
-Since under this scenario our user database is stored in Active Directory, we will use the !ActiveDirectoryLDAP authenticator. An example of an AD authenticator configuration is provided in the default RubyCAS-Server configuration. Uncomment this and modify it for your needs. You should create a basic user account in AD for the CAS server, and provide the username and password in the configuration. RubyCAS-Server needs this account to log in to the AD LDAP serve, in order to validate any given user credentials.
+Since under this scenario our user database is stored in Active Directory, we will use the ActiveDirectoryLDAP authenticator. An example of an AD authenticator configuration is provided in the default RubyCAS-Server configuration. Uncomment this and modify it for your needs. You should create a basic user account in AD for the CAS server, and provide the username and password in the configuration. RubyCAS-Server needs this account to log in to the AD LDAP serve, in order to validate any given user credentials.
 
 Your websites to be protected by CAS should be configured as described in the [HowToConfigure] guide. Be sure that the appropriate CAS filters are enacted for all content that needs to be protected. For example, in Rails this means adding the CAS filter to your base ApplicationController. In PHP, it means including the phpCAS code at the top of every page.
 
@@ -83,16 +83,23 @@ If you also want a "Logout" link:
 <% end %>
 }}}
 
-=== Performance/Scalability with Mongrel, Reverse HTTPS Proxying, and Clustering ===
+=== Performance/Scalability ===
 
 By default RubyCAS-Server runs using the built-in WEBrick web server. This works out of the box with minimal configuration, but since WEBrick is implemented entirely in Ruby, it's performance in high-load situation may not be up to par.
 
-One solution is to use the *Mongrel* web server instead of WEBrick. This is easily done by changin the 'server' option in your RubyCAS-Server configuration file from 'webrick' to 'mongrel'. However, unlike WEBrick, Mongrel does not support SSL. This is obviously a problem since CAS requires all transactions to be done over SSL.
+==== Apache + Mongrel + Reverse Proxy + Clustering ====
+
+One solution is to use the *Mongrel* web server instead of WEBrick. This is easily done by changing the 'server' option in your RubyCAS-Server configuration file from 'webrick' to 'mongrel'. However, unlike WEBrick, Mongrel does not support SSL. This is obviously a problem since CAS requires all transactions to be done over SSL.
 
 To get around this, you will have to put your Mongrel instance behind a *reverse HTTPS proxy*. Using a reverse proxy also opens up the possibility of clustering and load-balancing multiple instances of RubyCAS-Server. If you're already using *Apache* and aren't afraid to edit some complicated .conf files, you can try configuring Apache as a reverse proxy using ''mod_proxy''. For a simpler, stand-alone solution, try [http://www.apsis.ch/pound/ Pound].
 
 A guide for configuring Apache for reverse proxying with Mongrel is available [http://mongrel.rubyforge.org/wiki/Apache here]. For Pound, try [http://mongrel.rubyforge.org/wiki/Pound here].
 
+==== Apache + Phusion Passenger ====
+
+Another, newer solution is to run RubyCAS-Server under using the Phusion Passenger module for Apache. This is quickly becoming the preferred option over the Mongrel configuration described above, as it is somewhat easier to configure and deploy.
+
+For detailed instructions see DeployingUnderPhusionPassenger.
 
 ---
 
