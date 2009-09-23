@@ -35,6 +35,9 @@ You should now be up and running. Depending on the settings you entered in your 
 More detailed configuration information is available at HowToConfigure and UsageScenarios, but if you prefer to jump right in, you should be able to figure things out based on the comments in the sample config.
 
 
+*If you encounter any problems with RubyCAS-Server, please do not hesitate to [http://github.com/gunark/rubycas-server/issues open an issue ticket]!*
+
+
 ===Installing as an `init.d` service===
 
 Optionally, you can set up RubyCAS-Server to run as a background service on your linux server using the `init.d` mechanism:
@@ -47,6 +50,3 @@ The `init.d` script simply uses the rubycas-server-ctl script to start and launc
 ===Running under Apache with Phusion Passenger===
 
 See DeployingUnderPhusionPassenger
-
-
-*If you encounter any problems with RubyCAS-Server, please do not hesitate to [http://code.google.com/p/rubycas-server/issues/list open an issue ticket]!*
