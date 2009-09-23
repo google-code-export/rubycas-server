@@ -14,7 +14,7 @@ This page describes some of the more common usage scenarios and explains how to 
 Four main scenarios are covered:
 
   # *Company Intranet*, with several websites/web-applications, all protected by CAS, using an Active Directory authentication back-end
-  # *Public Website* with a homepage accessible anonymously and various sub-pages accessible only to authenticated members or administrators
+  # *Public Website* with a home page accessible anonymously and various sub-pages accessible only to authenticated members or administrators
   # *Web-Based Portal*, acting as a central entry point to portlets and other web-based services
   # *Web Services (SOAP, XML-RPC, REST, etc.)*, i.e. machines talking to other machines over HTTP, using CAS for authentication
 
