@@ -5,14 +5,15 @@
 If you already have a base Ruby installation configured for your system, you should be able to install RubyCAS-Server by running the following command:
 
 {{{
-gem install rubycas-server
+gem sources -a http://gems.github.com
+gem install gunark-rubycas-server
 }}}
 
 A number of dependencies will be installed, and you should be good to go. Head over to the QuickStart and HowToConfigure wiki pages for further info. However if the above doesn't work for you, read on for detailed installation instructions.
 
 == The Hard Way ==
 
-You can download the RubyCAS-Server !RubyGem package or source code directly from the *[http://rubyforge.org/frs/?group_id=3127&release_id=20723 RubyCAS-Server RubyForge downloads page]*. However, the preferred method is to install via the central *!RubyGems* repository, since this will automatically grab the required dependencies for you.
+You can obtain the RubyCAS-Server !RubyGem source code directly from the *[http://github.com/gunark/rubycas-server RubyCAS-Server Github repository]*. However, the preferred method is to install via the *!RubyGems*, since this will automatically grab the required dependencies for you.
 
 === Installing via !RubyGems ===
 
