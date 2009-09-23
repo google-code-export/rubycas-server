@@ -45,8 +45,11 @@ The !RubyGem method describe above is preferred, but if you insist...
     * [http://rubyforge.org/projects/activerecord ActiveRecord]
     * [http://rubyforge.org/projects/picnic Picnic]
   # Install the dependencies as per their individual install instructions. If for some insane reason you're trying to avoid !RubyGems, the general procedure is to install the libraries somewhere in Ruby's include path (for example `/usr/lib/ruby/site_ruby/1.8` on some Linux systems).
-  # Download the RubyCAS-Server source archive from [http://rubyforge.org/frs/?group_id=3127&release_id=20723 RubyCAS-Server RubyForge downloads page]. 
-   * Alternatively, you may want to grab the development source code from the [http://github.com/gunark/rubycas-server/tree/master Github Repo]
+  # Make sure you have [http://git-scm.com/ git] source control management tools installed.
+  # Clone the Picnic development source code from the [http://github.com/zuk/picnic Github repo] (Picnic is a middleware layer that underlies some of RubyCAS-Server's functionality)
+    * {{{git clone git://github.com/gunark/picnic.git}}}
+  # Clone the RubyCAS-Server development source code from the [http://github.com/gunark/rubycas-server/tree/master Github Repo]
+    * {{{git clone git://github.com/gunark/rubycas-server.git}}}
   # Untar the source archive and `cd` into the uncompressed directory.
   # Run {{{ruby setup.rb}}}.
 
