@@ -36,6 +36,7 @@ More detailed configuration information is available at HowToConfigure and Usage
 
 
 *If you encounter any bugs or issues with RubyCAS-Server, please do not hesitate to [http://github.com/gunark/rubycas-server/issues open an issue ticket]!*
+
 You can also ask for help via the [http://groups.google.com/group/rubycas-server RubyCAS Google Group].
 
 
