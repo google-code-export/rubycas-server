@@ -89,15 +89,17 @@ By default RubyCAS-Server runs using the built-in WEBrick web server. This works
 
 ==== Apache + Mongrel + Reverse Proxy + Clustering ====
 
-One solution is to use the *Mongrel* web server instead of WEBrick. This is easily done by changing the 'server' option in your RubyCAS-Server configuration file from 'webrick' to 'mongrel'. However, unlike WEBrick, Mongrel does not support SSL. This is obviously a problem since CAS requires all transactions to be done over SSL.
+One solution is to use the *Mongrel* web server instead of WEBrick. This is easily done by changing the 'server' option in your RubyCAS-Server configuration file from 'webrick' to 'mongrel'. However, unlike WEBrick, Mongrel does not in itself support SSL. This is obviously a problem since CAS requires all transactions to be done over SSL.
 
 To get around this, you will have to put your Mongrel instance behind a *reverse HTTPS proxy*. Using a reverse proxy also opens up the possibility of clustering and load-balancing multiple instances of RubyCAS-Server. If you're already using *Apache* and aren't afraid to edit some complicated .conf files, you can try configuring Apache as a reverse proxy using ''mod_proxy''. For a simpler, stand-alone solution, try [http://www.apsis.ch/pound/ Pound].
 
 A guide for configuring Apache for reverse proxying with Mongrel is available [http://mongrel.rubyforge.org/wiki/Apache here]. For Pound, try [http://mongrel.rubyforge.org/wiki/Pound here].
 
+As a bonus, the reverse-proxy configuration easily allows for distributed clustering, since the proxy can redirect CAS server requests to multiple RubyCAS-Servers residing on different machines (although currently all of the RubyCAS-Server instances must share the same database).
+
 ==== Apache + Phusion Passenger ====
 
-Another, newer solution is to run RubyCAS-Server under using the Phusion Passenger module for Apache. This is quickly becoming the preferred option over the Mongrel configuration described above, as it is somewhat easier to configure and deploy.
+Another, high-performance solution is to run RubyCAS-Server under using the Phusion Passenger module for Apache. This is quickly becoming the preferred option over the Mongrel configuration described above, as it is somewhat easier to configure and deploy (although it is somewhat less powerful/customizable in terms of clustering).
 
 For detailed instructions see DeployingUnderPhusionPassenger.
 
