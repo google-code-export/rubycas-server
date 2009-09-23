@@ -55,7 +55,7 @@ The !RubyGem method describe above is preferred, but if you insist...
     * You can run RubyCAS-Server directly from here by issuing the command: {{{bin/rubycas-server}}}
     * or you can install it into your system using: {{{ruby setup.rb}}}.
 
-RubyCAS-Server should now be installed. See the QuickStart and HowToConfigure wiki pages further instructions.
+See the HowToConfigure wiki page for further instructions.
 
 === Obtaining the Source Code ===
 
