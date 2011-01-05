@@ -11,7 +11,7 @@ To set up a full CAS infrastructure you will have to:
 
 =Installation=
 
-===Requirements===
+===Server Requirements===
 
   * [http://www.ruby-lang.org/en/downloads/ Ruby 1.8.4] or newer
   * [http://www.rubygems.org/read/chapter/3 RubyGems]
