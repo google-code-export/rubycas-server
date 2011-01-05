@@ -17,18 +17,20 @@ To set up a full CAS infrastructure you will have to:
   * [http://www.rubygems.org/read/chapter/3 RubyGems]
   * Ruby bindings for your preferred database. MySQL will probably work out-of-the-box. For other databases like SQLite3 and PostgreSQL you may have to install additional Ruby libraries first (e.g. `gem install sqlite3-ruby` for SQLite3).
   * An SSL certificate (CAS requires SSL)
-  * A Unix-like OS such as Linux or Mac OS X (RubyCAS-Server should work on other platforms, but the instructions here are *nix-specific)
+  * A Unix-like OS such as Linux or Mac OS X (RubyCAS-Server should work on other platforms, but the instructions here are POSIX-specific)
 
 ===Installation & Usage===
 
-  # Make sure you have all of the requirements listed above.
-  # Install RubyCAS-Server: `gem install rubycas-server` (you must be root to do this, so try it with `sudo`). This will install the package from rubyforge.org, along with the necessary dependencies ([http://camping-picnic.googlecode.com picnic], activesupport, activerecord, etc.). If you are installing locally via a manually downloaded gem file, you will have to get the dependencies yourself, so the default method of installing it via rubyforge is strongly recommended.
-  # Run `/usr/bin/rubycas-server`. you should get an error message about a missing configuration file; a sample config will be created for you at {{{/etc/rubycas-server/config.yml}}}.
-  # Edit the sample configuration to match your needs. The file is well documented, so you should be able to figure it out. 
-    * If you don't have an SSL certificate yet, you can download a sample certificate for testing purposes [http://rubycas-server.googlecode.com/files/rubycas-server-demo.pem here].
-    * Be sure to uncomment one of the 'authenticator' configurations. 
-    * Be careful about indentation. *Use only spaces, not tabs!* The configuration uses YAML, which is very sensitive to indentation.
-  # Run `/usr/bin/rubycas-server` (try `/usr/bin/rubycas-server -h` for a list of command-line options).
+_*TO DO: WRITE INSTRUCTIONS FOR NEW SINATRA-BASED SERVER*_
+
+In the meantime: 
+
+ * RubyCAS-Server is now a Rack-based Sinatra app. Googling for general instructions on deploying a Sinatra app should get you most of the way there. 
+ * Install Bundler and run `bundle install --without development` from the rubycas-server installation directory to install dependencies. _(FIXME: does the --without switch actually work?)_
+ * You'll need to copy the example config file under [https://github.com/gunark/rubycas-server/blob/master/resources/config.example.yml resources/config.example.yml] to `/etc/rubycas-server/config.yml` (there are ways to put this file elsewhere, but this is yet to be documented).
+ * Run `rake db:migrate` to generate the necessary database schema (db config is in your config.yml file).
+
+.....
 
 You should now be up and running. Depending on the settings you entered in your config.yml file (i.e. port, hostname, etc.), the server should now be available at https://localhost  (or some variation thereof).
 
@@ -38,16 +40,6 @@ More detailed configuration information is available at HowToConfigure and Usage
 *If you encounter any bugs or issues with RubyCAS-Server, please do not hesitate to [http://github.com/gunark/rubycas-server/issues open an issue ticket]!*
 
 You can also ask for help via the [http://groups.google.com/group/rubycas-server RubyCAS Google Group].
-
-
-===Installing as an `init.d` service===
-
-Optionally, you can set up RubyCAS-Server to run as a background service on your linux server using the `init.d` mechanism:
-
-  # In the *resources* subdirectory of the RubyCAS-Server distribution, you'll find an *init.d.sh* script. Rename this to */etc/init.d/rubcas-server*. (If you installed RubyCAS-Server as a gem, you should find this in something like /usr/lib/ruby/gems/1.8/gems/rubycas-server-0.4.0/resources/init.d.sh).
-  # Add the rubycas-server script to startup. This should be something like `chkconfig -a rubycas-server` (on Debian/Ubuntu, it will probably be `update-rc.d rubycas-server defaults`).
-
-The `init.d` script simply uses the rubycas-server-ctl script to start and launch the server. If you wish, you can do this manually; `rubycas-server-ctl start` starts the server, and `rubycas-server-ctl stop` stops it. If you run into trouble with the `init.d` script, try manually running `rubycas-server-ctl start --verbose` and you should get a detailed explanation of the problem.
 
 ===Running under Apache with Phusion Passenger===
 
