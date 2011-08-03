@@ -13,7 +13,7 @@ To set up a full CAS infrastructure you will have to:
 
 ===Server Requirements===
 
-  * [http://www.ruby-lang.org/en/downloads/ Ruby 1.8.4] or newer
+  * [http://www.ruby-lang.org/en/downloads/ Ruby 1.8.7] or newer
   * [http://www.rubygems.org/read/chapter/3 RubyGems]
   * Ruby bindings for your preferred database. MySQL will probably work out of the box. For other databases like SQLite3 and PostgreSQL you may have to install additional Ruby libraries first (e.g. `gem install sqlite3-ruby` for SQLite3).
   * An SSL certificate (CAS requires SSL)
@@ -21,16 +21,12 @@ To set up a full CAS infrastructure you will have to:
 
 ===Installation & Usage===
 
-_*TO DO: WRITE INSTRUCTIONS FOR NEW SINATRA-BASED SERVER*_
-
-In the meantime: 
-
  * RubyCAS-Server is now a Rack-based Sinatra app. Googling for general instructions on deploying a Sinatra app should get you most of the way there. 
- * Install Bundler and run `bundle install --without development` from the rubycas-server installation directory to install dependencies. _(FIXME: does the --without switch actually work?)_
- * You'll need to copy the example config file under [https://github.com/gunark/rubycas-server/blob/master/resources/config.example.yml resources/config.example.yml] to `/etc/rubycas-server/config.yml` (there are ways to put this file elsewhere, but this is yet to be documented).
- * Run `rake db:migrate` to generate the necessary database schema (db config is in your config.yml file).
-
-.....
+ * Install Bundler: `gem install bundler`
+ * Download RubyCAS-Server through !RubyGems: `gem install rubycas-server`
+ * You'll need to copy the example config file under [https://github.com/gunark/rubycas-server/blob/master/resources/config.example.yml resources/config.example.yml] to `/etc/rubycas-server/config.yml`.
+ * Customize your `config.yml` file. You'll need to pick a database  (e.g. MySQL, SQLite, etc.) and enable at least one authentication back-end.
+ * Run `rubycas-server`.
 
 You should now be up and running. Depending on the settings you entered in your config.yml file (i.e. port, hostname, etc.), the server should now be available at https://localhost  (or some variation thereof).
 
