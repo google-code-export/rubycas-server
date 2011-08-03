@@ -14,7 +14,7 @@ To set up a full CAS infrastructure you will have to:
 ===Server Requirements===
 
   * [http://www.ruby-lang.org/en/downloads/ Ruby 1.8.7] or newer
-    * It is possible to run under older versions of Ruby but it ain't pretty.
+    * It is possible to run under older versions of Ruby but it's not pretty.
   * [http://www.rubygems.org/read/chapter/3 RubyGems]
   * Ruby bindings for your preferred database. MySQL will probably work out of the box. For other databases like SQLite3 and PostgreSQL you may have to install additional Ruby libraries first (e.g. `gem install sqlite3-ruby` for SQLite3).
   * An SSL certificate (CAS requires SSL)
