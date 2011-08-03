@@ -3,17 +3,9 @@
 
 =Localization (l10n) in RubyCAS-Server=
 
-Localization in RubyCAS-Server is implemented through Ruby-GetText.
+Localization in RubyCAS-Server is implemented through Ruby-!GetText.
 
-Currently the following localizations are available:
-
-  * Geman (de_DE)
-  * Spanish (es_ES)
-  * French (fr_FR)
-  * Japanese (ja_JP)
-  * Polish (pl_PL)
-  * Russian (ru_RU)
-  * Brazilian Portuguese (pt_BR)
+Check https://github.com/gunark/rubycas-server/tree/master/po for an up-to-date list of all available localizations.
 
 These translations should work out of the box if you install RubyCAS-Server as a gem; otherwise you may have to build he locale .mo files by running the `rake mo` command in the RubyCAS-Server installation directory.
 
