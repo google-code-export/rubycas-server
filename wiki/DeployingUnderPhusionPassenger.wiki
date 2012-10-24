@@ -1,51 +1,6 @@
 #summary Instructions on how to deploy under Phusion Passenger (mod_rails/mod_rack)
 #labels Phase-Deploy
 
-= Introduction =
+= Moved =
 
-As of version 0.8.0, RubyCAS-Server can be deployed under Apache using the Phusion Passenger module (also known as mod_rails/mod_rack). This is now the preferred method for deploying RubyCAS-Server in a production environment.
-
-No additional configuration is requried to run RubyCAS-Server under Passenger. Just follow the normal instructions for a Passenger app (see http://www.modrails.com/).
-
-The `server` setting in your config file (and related settings) are ignored when running under Apache, since the port, location of the SSL certificate, etc. are all configured in your Apache vhost.conf.
-
-= Quickstart =
-
-Here's the quickest way to get things running (your OS may store server files elsewhere than `/srv/www` so change the path accordingly):
-
-{{{
-cd /srv/www/
-git clone git://github.com/gunark/rubycas-server.git
-cd rubycas-server
-bin/rubycas-server
-}}}
-
-A sample configuration file should now be created for you under `/etc/rubycas-server/config.yml`. Edit the file to your likings -- it's well documented internally but have a look at HowToConfigure for additional help.
-    
-Now set up a virtual host entry in Apache for rubycas (as shown in the example below). Assuming that you have Passenger installed properly, after restarting Apache you should find that your CAS server is up and running at https://localhost (or whatever `ServerName` you set in your vhost configuration).
-
-By default the CAS server log is under `/var/log/casserver.log`, but you can change this location in your `config.yml` file. If you run into problems, first consult your Apache `error_log` file and then the `casserver.log`.
-
-== Example Apache vhost Config ==
-
-Here's an example Apache vhost config for RubyCAS-Server and Passenger:
-
-{{{
-Listen 443
-<VirtualHost *:443>
-  ServerAdmin admin@example.net
-  ServerName login.example.net
-
-  SSLEngine On
-  SSLCertificateFile /etc/apache2/ssl.crt/example.pem
-
-  RailsAutoDetect off
-
-  DocumentRoot /srv/www/rubycas-server/public
-
-  <Directory "/srv/www/rubycas-server/public">
-    AllowOverride all
-    Allow from all
-  </Directory>
-</VirtualHost>
-}}}
+Moved to https://github.com/rubycas/rubycas-server/wiki/Installation
