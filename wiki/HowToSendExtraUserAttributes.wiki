@@ -1,63 +1,6 @@
 #summary Info on how to make the CAS server send extra user attributes to the client.
 #labels Phase-Implementation,Phase-Deploy
 
-= Introduction =
+= Moved =
 
-Normally, when a user logs in, the only information made available to CAS clients about the user is their authenticated username. But what if you want additional information like the user's full name or group membership?
-
-As of version 0.7.0, the CAS server is able to send back this extra information in authentication responses. Currently however only the RubyCAS-Client is able to read this additional data. Without modification, clients for other platforms will continue to only see the username.
-
-
-= Configuring RubyCAS-Server to send back extra user attributes =
-
-RubyCAS-Server is only able to send user attributes read by the underlying authentication back end. For example, if you're using a SQL-based authenticator, additional columns from your users table can be returned. Similarly, if you're using an LDAP-based authenticator, additional fields from the retrieved LDAP entry are available.
-
-For the SQL and LDAP authenticators, configuring this is easy (this is also true for derived authenticators like SQLEncrypted and ActiveDirectoryLDAP):
-
-== SQL ==
-
-In your `config.yml`:
-
-{{{
-authenticator:
-  class: CASServer::Authenticators::SQL
-  database:
-    adapter: mysql
-    database: some_database_with_users_table
-  user_table: users
-  username_column: username
-  password_column: password
-  extra_attributes: full_name, access_level
-}}}
-
-Notice the *`extra_attributes`* option. This specifies the additional table columns to return in the CAS response.
-
-== LDAP ==
-
-{{{
-authenticator:
-  class: CASServer::Authenticators::ActiveDirectoryLDAP
-  ldap:
-    host: ad.example.net
-    port: 636
-    base: dc=example,dc=net
-    filter: (objectClass=person) & !(msExchHideFromAddressLists=TRUE)
-    auth_user: authenticator
-    auth_password: itsasecret
-    encryption: simple_tls
-  extra_attributes: cn, mail
-}}}
-
-Notice the *`extra_attributes`* option. This specifies the additional entry fields to return in the CAS response.
-
-== Other Authenticators ==
-
-To see how the extra_attributes data is populated in authenticators code, see the [http://github.com/gunark/rubycas-server/tree/master/lib%2Fcasserver%2Fauthenticators%2Fsql.rb SQL authenticator] source. The basic idea is to fill the `@extra_attributes` instance variable within your `validate()` call. The server will then automatically serialize this data and pass it on in its validation response to the CAS client.
-
-= Further Information =
-
-See:
-
-  * http://groups.google.com/group/rubycas-server/browse_thread/thread/5eade3793cb590e9/9ab1ce01c292c5d3?lnk=gst&q=extra+attributes#9ab1ce01c292c5d3
-  * http://code.google.com/p/rubycas-server/issues/detail?id=10&q=attributes
-  * http://github.com/gunark/rubycas-server/tree/master/config.example.yml
+https://github.com/rubycas/rubycas-server/wiki/Extra-user-attributes
