@@ -1,43 +1,4 @@
 #summary Step-by-step installation and usage instructions
 #labels Featured,Phase-Deploy
 
-=Overview=
-
-To set up a full CAS infrastructure you will have to:
-
-  # *Install the CAS server for your organization* (i.e. install RubyCAS-Server, although other implementations exist, such as [http://www.ja-sig.org/products/cas/ JA-SIG CAS])
-  # *Configure the CAS server's method for validating usernames and passwords.* Out of the, box RubyCAS-Server can authenticate against an LDAP directory, a SQL database, Microsoft's Active Directory, etc. It is also possible to write a custom authenticator with a [WritingCustomAuthenticators little bit of Ruby coding].
-  # *Add CAS clients to your web applications.* CAS clients are available for most major web frameworks, including [http://www.ja-sig.org/products/cas/client/javaclient/ Java], [http://esup-phpcas.sourceforge.net PHP], and [http://rubyforge.org/projects/rubycas-client/ Ruby on Rails].
-
-=Installation=
-
-===Server Requirements===
-
-  * [http://www.ruby-lang.org/en/downloads/ Ruby 1.8.7] or newer
-    * It is possible to run under older versions of Ruby but it's not pretty.
-  * [http://www.rubygems.org/read/chapter/3 RubyGems]
-  * Ruby bindings for your preferred database. MySQL will probably work out of the box. For other databases like SQLite3 and PostgreSQL you may have to install additional Ruby libraries first (e.g. `gem install sqlite3-ruby` for SQLite3).
-  * An SSL certificate (CAS requires SSL)
-  * A Unix-like OS such as Linux or Mac OS X (RubyCAS-Server should work on other platforms, but the instructions here are POSIX-specific)
-
-===Installation & Usage===
-
- * RubyCAS-Server is now a Rack-based Sinatra app. Googling for general instructions on deploying a Sinatra app should get you most of the way there. 
- * Install Bundler: `gem install bundler`
- * Download RubyCAS-Server through !RubyGems: `gem install rubycas-server`
- * You'll need to copy the example config file under [https://github.com/gunark/rubycas-server/blob/master/resources/config.example.yml resources/config.example.yml] to `/etc/rubycas-server/config.yml`.
- * Customize your `config.yml` file. You'll need to pick a database  (e.g. MySQL, SQLite, etc.) and enable at least one authentication back-end.
- * Run `rubycas-server`.
-
-You should now be up and running. Depending on the settings you entered in your config.yml file (i.e. port, hostname, etc.), the server should now be available at https://localhost  (or some variation thereof).
-
-More detailed configuration information is available at HowToConfigure and UsageScenarios, but if you prefer to jump right in, you should be able to figure things out based on the comments in the sample config.
-
-
-*If you encounter any bugs or issues with RubyCAS-Server, please do not hesitate to [http://github.com/gunark/rubycas-server/issues open an issue ticket]!*
-
-You can also ask for help via the [http://groups.google.com/group/rubycas-server RubyCAS Google Group].
-
-===Running under Apache with Phusion Passenger===
-
-See DeployingUnderPhusionPassenger
+Moved to https://github.com/rubycas/rubycas-server/wiki/Quick-Start
